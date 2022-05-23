@@ -11,4 +11,6 @@
   <% end %>
 </div>
 
-<%= link_to "New user", new_user_path %>
+<% if current_user_is_admin? %>
+  <%= link_to "New user", new_user_path %>
+<% end %>

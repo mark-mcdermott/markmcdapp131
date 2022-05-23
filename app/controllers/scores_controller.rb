@@ -1,4 +1,7 @@
 class ScoresController < ApplicationController
+
+  skip_before_action :logged_in_authorized, only: :leaderboard
+  skip_before_action :admin_authorized, only: :leaderboard
   before_action :set_score, only: %i[ show edit update destroy ]
 
   # GET /scores or /scores.json

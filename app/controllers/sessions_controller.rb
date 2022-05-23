@@ -1,6 +1,7 @@
 class SessionsController < ApplicationController
 
-  skip_before_action :authorized, only: [:new, :create]
+  skip_before_action :logged_in_authorized, only: [:new, :create]
+  skip_before_action :admin_authorized, only: [:new, :create, :destroy]
 
   def new
     @user = User.new
