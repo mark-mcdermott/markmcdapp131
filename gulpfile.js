@@ -5,7 +5,7 @@ const source = require('vinyl-source-stream');
 const buffer = require('vinyl-buffer');
 
 gulp.task('scripts', (done) => {
-  return browserify(['./app/assets/javascript/src/Block.js', './app/assets/javascript/src/emoji-tetrominos.js'])
+  return browserify(['./app/assets/javascript/src/Block.js', './app/assets/javascript/src/emoji-tetrominos.js', './app/assets/javascript/src/test-ajax-request.js'])
   .transform(babelify)
   .bundle()
   .pipe(source('emoji-tetrominos.js'))
