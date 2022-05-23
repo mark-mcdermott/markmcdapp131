@@ -1,2 +1,9 @@
-<h1>Sessions#new</h1>
-<p>Find me in app/views/sessions/new.html.erb</p>
+<h1>Log In</h1>
+
+<%= render "form", user: @user %>
+
+<br>
+
+<div>
+  <%= link_to "Back to users", users_path, class: 'btn btn-secondary' %>
+</div>

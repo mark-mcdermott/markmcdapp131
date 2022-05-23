@@ -1,0 +1,18 @@
+<%= form_tag('/login', class: 'page-form') do %>
+
+  <%= render partial: "layouts/shared/flash_messages", flash: flash %> 
+
+  <div>
+    <%= label_tag :username, :username, style: "display: block" %>
+    <%= text_field_tag :username %>
+  </div>
+
+  <div>
+    <%= label_tag :password, :password, style: "display: block" %>
+    <%= password_field_tag :password %>
+  </div>
+
+  <div>
+    <%= submit_tag 'Log in' %>
+  </div>
+<% end %>
