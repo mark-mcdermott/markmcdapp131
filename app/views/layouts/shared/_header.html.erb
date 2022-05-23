@@ -1,0 +1,30 @@
+    <header class="pb-4 my-4 border-bottom">
+      <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container-fluid">
+          <i class="bi bi-joystick navbar-brand-icon"></i>
+          <%= link_to 'Emoji Tetris', '/', class: 'navbar-brand' %>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+              <li class="nav-item"><%= link_to 'Home', '/', class: 'nav-link' %></li>
+              <li class="nav-item"><%= link_to 'About', '/about', class: 'nav-link' %></li>
+              <li class="nav-item"><%= link_to 'Leaderboard', '/scores', class: 'nav-link' %></li>
+              <% if logged_in? %>
+                <li class="nav-item"><%= link_to 'Users', '/users', class: 'nav-link' %></li>
+              <% end %>
+
+              <% if !logged_in? %>
+                <li class="nav-item"><%= link_to 'Log in', '/login', class: 'nav-link' %></li>
+              <% else %>
+                <li class="nav-item"><%= button_to 'Log out', '/logout', method: :delete, class: 'nav-link' %></li>
+              <% end %>
+              <% if !logged_in? %>
+                <li class="nav-item"><%= link_to 'Sign up', '/signup', method: :get, class: 'nav-link' %></li>
+              <% end %>
+
+          </div>
+        </div>
+      </nav>
+    </header>
