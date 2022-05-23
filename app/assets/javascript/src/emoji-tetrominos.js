@@ -545,32 +545,20 @@ let block = require("./Block.js");
 
   function updateRailsLeaderboard(userId,score) {
 
-    fetch('/leaderboard', {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json', 
-        'Content-Type': 'application/json',
-        'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content')},
-        credentials: 'same-origin',
-        body: JSON.stringify( { "value": score, "userId": userId } )
-        })
-        .then(function(data) {
-          console.log('request succeeded with JSON response', data)
-        }).catch(function(error) {
-          console.log('request failed', error)
-        })
+    const scoresApiUrl = '/api/scores/new';
 
-//     let xhr = new XMLHttpRequest();
-//     // xhr.open("POST", "https://markmcdapp128.herokuapp.com/leaderboard");
-//     xhr.open("POST", "http://127.0.0.1:3000/leaderboard");
-//     xhr.setRequestHeader("Accept", "application/json");
-//     xhr.setRequestHeader("Content-Type", "application/json");
-//     xhr.onload = () => console.log(xhr.responseText);
-//     let data = `{
-//   "value": ${score},
-//   "userId": ${userId}
-// }`;
-//     xhr.send(data);
+    // this is the post request the js uses to send the game score to rails when a game finished
+    
+    console.log('in post request')
+    var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', scoresApiUrl);
+    xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    xhr.setRequestHeader('X-CSRF-Token', csrfToken);
+    xhr.onload = function () { console.log('Scores API post request success'); };
+    xhr.send(JSON.stringify({ score: { "val": score, "user_id": userId }}));
+
+
   }
 
   function sendFakeScoreRequest() {
