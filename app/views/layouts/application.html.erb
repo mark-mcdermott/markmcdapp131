@@ -14,6 +14,15 @@
   </head>
 
   <body>
-    <%= yield %>
+    <div class="container">
+      <%= render 'layouts/shared/header' %>
+      <div class="p-5 mb-4 bg-light rounded-3">
+        <div class="container-fluid pb-5">
+          <%= yield %>
+        </div>
+      </div>
+      <%= render 'layouts/shared/footer' %>
+    </div>
+  </body>
   </body>
 </html>

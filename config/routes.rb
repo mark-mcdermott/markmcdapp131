@@ -1,14 +1,15 @@
 Rails.application.routes.draw do
-  get 'sessions/new'
-  get 'sessions/create'
-  get 'sessions/destroy'
-  get 'game/index'
-  get 'static_pages/about'
 
   resources :scores
   resources :users
 
   root 'home#index'
+  get    '/login',        to: 'sessions#new'
+  post   '/login',        to: 'sessions#create'
+  delete '/logout',       to: 'sessions#destroy'
+  get    '/signup',       to: 'users#new'
+  post   '/signup',       to: 'users#create'
+  get    '/about',        to: 'static_pages#about'
   get  '/leaderboard', to: 'scores#leaderboard'
   get  '/api/scores/new',  to: 'scores#new_api_call'
   post '/api/scores/new',  to: 'scores#create_api_call'

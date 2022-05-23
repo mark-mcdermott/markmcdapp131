@@ -1,6 +1,181 @@
+$secondary: rgb(57, 195, 226);
+
 @import 'bootstrap/scss/bootstrap';
 @import 'bootstrap-icons/font/bootstrap-icons';
 
-body {
-	background: $gray-200;
+@mixin button {
+	@include button-variant($primary, transparent);
+	@include button-size(.375rem, .75rem, 1rem, .25rem);
+  &:hover {
+    border-color: transparent;
+  }
 }
+
+@mixin form-label {
+	margin-bottom: $form-label-margin-bottom;
+	@include font-size($form-label-font-size);
+	font-style: $form-label-font-style;
+	font-weight: $form-label-font-weight;
+	color: $form-label-color;
+}
+
+@mixin form-control {
+	display: block;
+  width: 100%;
+  padding: $input-padding-y $input-padding-x;
+  font-family: $input-font-family;
+  @include font-size($input-font-size);
+  font-weight: $input-font-weight;
+  line-height: $input-line-height;
+  color: $input-color;
+  background-color: $input-bg;
+  background-clip: padding-box;
+  border: $input-border-width solid $input-border-color;
+  appearance: none; // Fix appearance for date inputs in Safari
+
+  @include border-radius($input-border-radius, 0);
+  @include box-shadow($input-box-shadow);
+  @include transition($input-transition);
+
+  &[type="file"] {
+    overflow: hidden; // prevent pseudo element button overlap
+
+    &:not(:disabled):not([readonly]) {
+      cursor: pointer;
+    }
+  }
+
+  &:focus {
+    color: $input-focus-color;
+    background-color: $input-focus-bg;
+    border-color: $input-focus-border-color;
+    outline: 0;
+    @if $enable-shadows {
+      @include box-shadow($input-box-shadow, $input-focus-box-shadow);
+    } @else {
+      box-shadow: $input-focus-box-shadow;
+    }
+  }
+
+  &::-webkit-date-and-time-value {
+    height: if(unit($input-line-height) == "", $input-line-height * 1em, $input-line-height);
+  }
+
+  &::placeholder {
+    color: $input-placeholder-color;
+    opacity: 1;
+  }
+
+  &:disabled,
+  &[readonly] {
+    background-color: $input-disabled-bg;
+    border-color: $input-disabled-border-color;
+    opacity: 1;
+  }
+
+  &::file-selector-button {
+    padding: $input-padding-y $input-padding-x;
+    margin: (-$input-padding-y) (-$input-padding-x);
+    margin-inline-end: $input-padding-x;
+    color: $form-file-button-color;
+    @include gradient-bg($form-file-button-bg);
+    pointer-events: none;
+    border-color: inherit;
+    border-style: solid;
+    border-width: 0;
+    border-inline-end-width: $input-border-width;
+    border-radius: 0; // stylelint-disable-line property-disallowed-list
+    @include transition($btn-transition);
+  }
+
+  &:hover:not(:disabled):not([readonly])::file-selector-button {
+    background-color: $form-file-button-hover-bg;
+  }
+
+  &::-webkit-file-upload-button {
+    padding: $input-padding-y $input-padding-x;
+    margin: (-$input-padding-y) (-$input-padding-x);
+    margin-inline-end: $input-padding-x;
+    color: $form-file-button-color;
+    @include gradient-bg($form-file-button-bg);
+    pointer-events: none;
+    border-color: inherit;
+    border-style: solid;
+    border-width: 0;
+    border-inline-end-width: $input-border-width;
+    border-radius: 0; // stylelint-disable-line property-disallowed-list
+    @include transition($btn-transition);
+  }
+
+  &:hover:not(:disabled):not([readonly])::-webkit-file-upload-button {
+    background-color: $form-file-button-hover-bg;
+  }
+}
+
+header {
+
+  .navbar-brand-icon {
+    font-size: 2rem;
+    margin-right: 1rem;
+  }
+
+  .navbar-brand {
+    font-size: 1.5rem;
+  }
+
+  form button.nav-link {
+    background-color: transparent;
+    border: none;
+  }
+
+}
+
+h1 {
+	margin: 1.5rem 0;
+	font-size: 4rem;
+	font-weight: bold;
+}
+
+.game {
+
+  text-align: center;
+
+  canvas {
+    border: 1px solid #000;
+    margin: 50px 0 0;
+  }
+}
+
+form {
+  &.page-form {
+    @include media-breakpoint-up(md) {  
+      @include row-cols(2);
+    }
+    @include media-breakpoint-up(lg) {  
+      @include row-cols(3);
+    }
+  }
+	&.button_to {
+		display: inline;
+	}
+	button {
+		@include button;
+	}
+	label {
+    text-transform: capitalize;
+		@include form-label;
+	}
+	input {
+		&[type="text"],
+    &[type="password"] {
+			margin-bottom: 1rem;
+			@include form-control;
+		}
+		&[type="submit"] {
+			margin-top: .5rem;
+			@include button;
+		}
+	}
+}
+
+
