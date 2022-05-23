@@ -6,12 +6,22 @@ class ScoresController < ApplicationController
     @scores = Score.all
   end
 
+  def leaderboard
+    @scores = Score.all.sort_by(&:val).reverse.first(10)
+    render :template => 'scores/leaderboard'
+  end
+
   # GET /scores/1 or /scores/1.json
   def show
   end
 
   # GET /scores/new
   def new
+    @score = Score.new
+  end
+
+  # GET /api/scores/new
+  def new_api_call
     @score = Score.new
   end
 
@@ -29,6 +39,19 @@ class ScoresController < ApplicationController
         format.json { render :show, status: :created, location: @score }
       else
         format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @score.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # POST /api/scores/new
+  def create_api_call
+    @score = Score.new(score_params)
+
+    respond_to do |format|
+      if @score.save
+        format.json { render :show, status: :created, location: @score }
+      else
         format.json { render json: @score.errors, status: :unprocessable_entity }
       end
     end
