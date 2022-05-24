@@ -5,9 +5,17 @@
 
   <br><br>
   <p id="current-user-id" data-user-id="<%= current_user_id_class %>">Level: <span id="gameLevel"></span> Score: <span id="gameScore"></span><p>
-  <p>⬅️ &nbsp;➡️ &nbsp;⬇️ &nbsp;to move block<br>⬆️ &nbsp;to rotate block<br>no touchscreen controls yet</p>
+  <p>
+    ⬅️ &nbsp;➡️ &nbsp;⬇️ &nbsp;to move block<br>⬆️ &nbsp;to rotate block
+    <br><br>no touchscreen controls yet
+  </p>
   <p>code on <a href="https://github.com/mark-mcdermott/markmcdapp131">github</a></p>
   <p>a work in progress</p>
+  <% if !logged_in? %>
+    <p>
+      <a href="/signup">Sign up</a> / <a href="/login">log in</a> so your score can be on the leaderboard!!!
+    </p>
+  <% end %>
 </div>
 
 <script src="<%= asset_path("dist/emoji-tetrominos.js") %>" ></script>
