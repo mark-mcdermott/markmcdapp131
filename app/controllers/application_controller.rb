@@ -8,6 +8,14 @@ class ApplicationController < ActionController::Base
   helper_method :logged_in?
   helper_method :current_user_id_class
   helper_method :bootstrap_class_for
+  helper_method :get_version
+
+  def get_version(date) 
+    versions = [
+      { date: '5/20/22', version: '1.0' }
+    ]
+    '1.0'
+  end
 
   def active_page?(current_page, this_page)
     current_page==this_page ? 'nav-link active' : 'nav-link'
