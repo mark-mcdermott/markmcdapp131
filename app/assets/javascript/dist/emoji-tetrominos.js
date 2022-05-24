@@ -146,6 +146,8 @@ module.exports = class Block {
 
       if (this.curRotation === 0 && y < 1) {
         return;
+      } else if (this.curRotation === 1 && x < 1) {
+        return;
       }
 
       if (x >= 0 && x < 9) {
