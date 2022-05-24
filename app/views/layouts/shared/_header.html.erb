@@ -14,7 +14,6 @@
               <% if logged_in? %>
                 <li class="nav-item"><%= link_to 'Users', '/users', class: active_page?(@page,'Users') %></li>
                 <li class="nav-item"><%= link_to 'Log in', '/login', class: active_page?(@page,'Log In') %></li>
-              <% else %>
                 <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     <img class='leaderboard-avatar' src='https://i.pravatar.cc/20?img=<%= current_user.pravatar.to_s %>' alt='avatar' width='20' />
