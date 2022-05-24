@@ -61,7 +61,9 @@ let block = require("./Block.js");
         [0,0,0,0,0,0,0,0,0,0],
         [0,0,0,0,0,0,0,0,0,0]
       ],
-      score = 0;
+      score = 0,
+      level = 1,
+      rowsCleared = 0;
 
   function drawBlock(coords, numPix, emoji) {
     for (let i=0; i<numPix; i++) {
@@ -104,6 +106,8 @@ let block = require("./Block.js");
         }
         if (fullRow) {
           score += 1000;
+          rowsCleared += 1;
+          level = Math.floor(rowsCleared / 10) + 1;
           needToUpdateScoreDisplay = true;
           // clear the found full row
           for (let j=0; j<10; j++) {
@@ -432,8 +436,10 @@ let block = require("./Block.js");
 
   function resetForNewGame() {
     score = 0;
+    level = 0;
     speed = 125;
     updateScoreDisplay(score);
+    updateLevelDisplay(level);
     clearBoardAfterGameOver();
   }
 
@@ -441,9 +447,33 @@ let block = require("./Block.js");
     gameScore.innerText = score;
   }
 
+  function updateLevelDisplay(level) {
+    gameLevel.innerText = level;
+  }
+
+  function setInitialStats() {
+    rowsCleared = 0;
+    setInitialScore();
+    setInitialLevel();
+  }
+
   function setInitialScore() {
     score = 0;
     updateScoreDisplay(score);
+  }
+
+  function setInitialLevel() {
+    level = 1;
+    updateLevelDisplay(level);
+  }
+
+  function setBgColor(color) {
+    ctx.fillStyle = color;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+  }
+
+  function checkLevel() {
+    return Math.floor(rowsCleared / 10);
   }
 
   // score post request game sends to rails after a game
@@ -471,9 +501,11 @@ let block = require("./Block.js");
     }
     if (checkFullRows()) {
       updateScoreDisplay(score);
+      updateLevelDisplay(level);
     }
     clearBoardBetweenFrames();
     
+    setBgColor('#ffeaa7');
     drawLanded();
     drawFallingBlock();
     frame++;
@@ -486,9 +518,8 @@ let block = require("./Block.js");
   };
 
   // start game
-  setInitialScore();
+  setInitialStats();
   spawnBlock();
-  sendFakeScoreRequest();
   draw();  // call main draw loop
 
 })();
