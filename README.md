@@ -35,6 +35,6 @@
 - (note that after any db changes, you'll have to run the migrations, `heroku run rails db:migrate`. also, if you ever need to run the seeds on Heroku, use the prod seeds, `heroku run rake seed:prod`)
 
 # To Make Javascript Changes 
-- The changable javascript files are the `Block.js` or `emoji-tetrominos.js` files in `app/assets/javascript/src`
-- Make your changes there and then type `gulp`
+- The changable javascript files are the `Block.js`, `emoji-tetrominos.js` and `test-ajax-request.js` files in `app/assets/javascript/src`
+- Make your changes there and then type `gulp scripts`
 - Gulp should change the es6-type javascript to regular javascript and combine the files into on file in `app/assets/javascript/dist` called `emoji-tetrominos.js`. This is the file called in the game view file (`app/assets/views/game/index.html.erb`)

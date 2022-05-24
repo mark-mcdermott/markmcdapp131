@@ -401,10 +401,9 @@ let block = require("./Block.js");
     fallingBlock = new block(blockType, x, y);
   }
 
-
-
   // process all keystrokes
-  function processKeystroke(key) {
+  function processKeystroke(e) {
+    key = e.keyCode;
 
     if (!fallingBlock) {
       return;
@@ -414,9 +413,12 @@ let block = require("./Block.js");
     switch (key) {
 
       case 38:  // up arrow
+        e.preventDefault();
         rotate();
         break;
       case 40:  // down arrow
+        console.log('down!')
+        e.preventDefault();
         moveDown();
         break;
       case 39:  // right arrow
@@ -509,7 +511,7 @@ let block = require("./Block.js");
 
   // event listener for all keystrokes
   document.onkeydown = function(e) {
-    processKeystroke(e.keyCode);
+    processKeystroke(e);
   };
 
   // start game
