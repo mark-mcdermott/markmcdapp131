@@ -17,8 +17,18 @@
 
               <% if !logged_in? %>
                 <li class="nav-item"><%= link_to 'Log in', '/login', class: active_page?(@page,'Log In') %></li>
+                <li class="nav-item"><%= link_to 'Log in', '/login', class: active_page?(@page,'Log In') %></li>
               <% else %>
-                <li class="nav-item"><%= button_to 'Log out', '/logout', method: :delete, class: active_page?(@page,'Log Out') %></li>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img class='leaderboard-avatar' src='https://i.pravatar.cc/20?img=<%= current_user.pravatar.to_s %>' alt='avatar' width='20' />
+                  </a>
+                  <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <li><span class="logged-in-as"><%= current_user.username %></span></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li class="nav-item"><%= button_to 'Log out', '/logout', method: :delete, class: 'dropdown-item' %></li>
+                  </ul>
+                </li>                
               <% end %>
               <% if !logged_in? %>
                 <li class="nav-item"><%= link_to 'Sign up', '/signup', method: :get, class: active_page?(@page,'Sign Up') %></li>
