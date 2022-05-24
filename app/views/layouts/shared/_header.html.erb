@@ -24,7 +24,7 @@
                     <img class='leaderboard-avatar' src='https://i.pravatar.cc/20?img=<%= current_user.pravatar.to_s %>' alt='avatar' width='20' />
                   </a>
                   <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <li><span class="logged-in-as"><%= current_user.username %></span></li>
+                    <li><span class="logged-in-as text-muted"><%= current_user.username %></span></li>
                     <li><hr class="dropdown-divider"></li>
                     <li class="nav-item"><%= button_to 'Log out', '/logout', method: :delete, class: 'dropdown-item' %></li>
                   </ul>
