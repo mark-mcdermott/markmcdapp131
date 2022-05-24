@@ -1,12 +1,18 @@
 <div id="<%= dom_id score %>">
-  <p>
-    <strong>Val:</strong>
-    <%= score.val %>
-  </p>
 
-  <p>
-    <strong>User:</strong>
-    <%= score.user_id %>
-  </p>
+<div id="scores" class="section-narrow">
+  <table class="table">
+    <tr>
+      <th>score</th>
+      <th>user</th>
+      <th>date</th>
+    <tr>
+      <tr id="<%= dom_id score %>">
+        <td><%= score.val %></td>
+        <td><%= User.find_by_id(score.user_id).username %></td>
+        <td><%= score.created_at.strftime("%_m/%-d/%y") %>
+      </tr>
+  </table>
+</div>
 
 </div>

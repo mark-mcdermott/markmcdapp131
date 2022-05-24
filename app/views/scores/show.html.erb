@@ -4,11 +4,8 @@
 
 <div>
   <% if current_user_is_admin? %>
-    <%= link_to "Edit this score", edit_score_path(@score) %> 
-  <% end %>
-  <%= link_to "Back to scores", scores_path %>
-
-  <% if current_user_is_admin? %>
-    <%= button_to "Destroy this score", @score, method: :delete %>
-  <% end %>
+    <%= link_to "Edit score", edit_score_path(@score), class: 'btn btn-primary me-1' %> 
+  <% end %> 
+  <%= link_to "Back to scores", scores_path, class: 'btn btn-secondary me-1' %>
+  <%= button_to "Destroy score", @score, method: :delete, class: 'btn btn-danger' %>
 </div>

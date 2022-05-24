@@ -146,7 +146,26 @@ h1 {
   }
 }
 
+.section-narrow { 
+  @include media-breakpoint-up(md) {  
+    @include row-cols(2);
+  }
+  @include media-breakpoint-up(lg) {  
+    @include row-cols(3);
+  }
+}
+
+.btn.button_to,
+button.btn { 
+  display: inline;
+}
+
 form {
+
+  &.button_to {
+    display: inline;
+  }
+
   &.page-form {
     @include media-breakpoint-up(md) {  
       @include row-cols(2);
@@ -154,28 +173,28 @@ form {
     @include media-breakpoint-up(lg) {  
       @include row-cols(3);
     }
+
+    button {
+      @include button;
+    }
+    label {
+      text-transform: capitalize;
+      @include form-label;
+    }
+    input {
+      &[type="text"],
+      &[type="number"],
+      &[type="password"] {
+        margin-bottom: 1rem;
+        @include form-control;
+      }
+      &[type="submit"] {
+        margin-top: .5rem;
+        @include button;
+      }
+    }
+
   }
-	&.button_to {
-		display: inline;
-	}
-	button {
-		@include button;
-	}
-	label {
-    text-transform: capitalize;
-		@include form-label;
-	}
-	input {
-		&[type="text"],
-    &[type="password"] {
-			margin-bottom: 1rem;
-			@include form-control;
-		}
-		&[type="submit"] {
-			margin-top: .5rem;
-			@include button;
-		}
-	}
 }
 
 
