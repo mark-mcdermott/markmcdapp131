@@ -205,7 +205,11 @@ module.exports = class Block {
       // if S is vert, checks for collisions
       if (this.curRotation === 0 && y < 1) {
         return;
+      // if S is horiz, checks for collisions
+      } else if (this.curRotation === 1 && x < 1) {
+        return;
       }
+
 
       if ( (x >= 0) && (x < 9) ) {
 

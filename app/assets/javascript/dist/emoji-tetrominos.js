@@ -187,6 +187,8 @@ module.exports = class Block {
       let y = this.coords[0][1]; // if S is vert, checks for collisions
 
       if (this.curRotation === 0 && y < 1) {
+        return; // if S is horiz, checks for collisions
+      } else if (this.curRotation === 1 && x < 1) {
         return;
       }
 
@@ -722,7 +724,6 @@ let block = require("./Block.js");
 
       case 40:
         // down arrow
-        console.log('down!');
         e.preventDefault();
         moveDown();
         break;

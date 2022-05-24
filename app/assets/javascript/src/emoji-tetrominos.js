@@ -417,7 +417,6 @@ let block = require("./Block.js");
         rotate();
         break;
       case 40:  // down arrow
-        console.log('down!')
         e.preventDefault();
         moveDown();
         break;
