@@ -3,6 +3,7 @@ let block = require("./Block.js");
 (function(){
 
   // init vars
+  const scoresApiUrl = '/api/scores/new';
   const canvas = document.getElementById("canvas");
   const gameScore = document.getElementById("gameScore");
   const currentUserId = document.getElementById("current-user-id");
@@ -18,19 +19,10 @@ let block = require("./Block.js");
       */
 
       // frame counter (needed for block entrance timing)
-      // pixel = canWidth / 10.0;
       pixel = canWidth / 10;
   let frame = 0,
       speed = 125,
-      // fontStyle = "18px Georgia",
       fontStyle = "30px Georgia",
-      // colorI = '#1abc9c',
-      // colorT = '#e67e22',
-      // colorO = '#3498db',
-      // colorJ = '#e74c3c',
-      // colorL = '#9b59b6',
-      // colorS = '#f1c40f',
-      // colorZ = '#e97066',
       fallingBlock,
 
       /*
@@ -71,39 +63,10 @@ let block = require("./Block.js");
       ],
       score = 0;
 
-      // init blocks
-
-  // function defs
-  // helper functions - draw boxes & text to correct scale
-  /*function strokeRec(x, y, w, h) {
-    ctx.strokeRect(x * pixel, y * pixel, w * pixel, h * pixel);
-  }*/
-  // function fillText(text, x, y) {
-  //   //console.log(text,x,y);
-  //   //ctx.fillStyle = color;
-  //   ctx.fillStyle = '#1abc9c';
-  //   ctx.font="18px Georgia";
-  //   //ctx.fillText("text", (x + 0.25) * pixel, (y + 0.75) * pixel);
-  //   //ctx.fillText(text, (0 + 0.25) * pixel, (0 + 0.75) * pixel);
-  //   ctx.fillText(text, (x + 0.25) * pixel, (y + 0.75) * pixel);
-  //   //ctx.strokeRect(x * pixel, y * pixel, w * pixel, h * pixel);
-  //   //ctx.strokeRect(0 * pixel, 0 * pixel, 1 * pixel, 1 * pixel);
-  // }
-  // function drawPixel(x, y, color) {
-  //   ctx.fillStyle = color;
-  //   ctx.fillRect(x * pixel, y * pixel, 1 * pixel, 1 * pixel);
-  // }
   function drawBlock(coords, numPix, emoji) {
     for (let i=0; i<numPix; i++) {
-      //ctx.fillStyle = color;
-      //ctx.fillRect(coords[i][0] * pixel, coords[i][1] * pixel, 1 * pixel, 1 * pixel);
-      // drawText(emoji) {
-      //ctx.fillStyle = '#1abc9c';
       ctx.font=fontStyle;
       ctx.fillText(emoji, (coords[i][0]) * pixel, (coords[i][1]) * pixel);
-      //fillText(emoji, coords[i][0] * pixel, coords[i][1] * pixel);
-
-      //}
     }
   }
 
@@ -123,11 +86,6 @@ let block = require("./Block.js");
     }
   }
   */
-
-  // can copy emoji from http://unicode.org/emoji/charts/full-emoji-list.html#1f600
-  // function drawText() {
-  //     fillText("😀", 0, 0);
-  // }
 
   function checkFullRows()
   {
@@ -292,34 +250,7 @@ let block = require("./Block.js");
     ctx.clearRect(0, 0, 10 * pixel, 20 * pixel);
   }
 
-  // function getColor(block) {
-  //   let color;
-  //   switch (block) {
-  //     case 'I':
-  //       color = colorI;
-  //       break;
-  //     case 'T':
-  //       color = colorT;
-  //       break;
-  //     case 'O':
-  //       color = colorO;
-  //       break;
-  //     case 'S':
-  //       color = colorS;
-  //       break;
-  //     case 'Z':
-  //       color = colorZ;
-  //       break;
-  //     case 'J':
-  //       color = colorJ;
-  //       break;
-  //     case 'L':
-  //       color = colorL;
-  //       break;
-  //   }
-  //   return color;
-  // }
-
+  // can copy emoji from http://unicode.org/emoji/charts/full-emoji-list.html#1f600
   function getEmoji(block) {
     // let color;
     let emoji;
@@ -363,10 +294,7 @@ let block = require("./Block.js");
     for (let i=0; i<landed.length; i++) {
       for (let j=0; j<landed[i].length; j++) {
         if (landed[i][j] !== 0) {
-          //let color = getColor(landed[i][j]);
           let emoji = getEmoji(landed[i][j]);
-        //  drawPixel(j,i,color);
-        //ctx.fillStyle = '#1abc9c';
         ctx.font=fontStyle;
         ctx.fillText(emoji, j * pixel, i * pixel);
         }
@@ -376,7 +304,6 @@ let block = require("./Block.js");
 
   function drawFallingBlock() {
     if (fallingBlock) {
-      //let color = getColor(fallingBlock.letter);
       drawBlock(
         fallingBlock.coords,
         fallingBlock.numPix,
@@ -384,24 +311,6 @@ let block = require("./Block.js");
       );
     }
   }
-
-  // // check if fallen pieces have reached top
-  // // if so clear board
-  // function checkFullBoard() {
-  //   let boardFull = false;
-  //   for (let i=0; i<10; i++) {
-  //     if (landed[0][i] === 1) {
-  //       boardFull = true;
-  //     }
-  //   }
-  //   if (boardFull) {
-  //     for (let i=0; i<10; i++) {
-  //       for (let j=0; j<20; j++) {
-  //         landed[j][i] = 0;
-  //       }
-  //     }
-  //   }
-  // }
 
   function clearBoardAfterGameOver() {
     for (let i=0; i<10; i++) {
@@ -519,13 +428,7 @@ let block = require("./Block.js");
         moveSide('left');
         break;
     }
-
   }
-
-  // function drawOnEvent(e) {
-  //   draw();
-  //   e.preventDefault();
-  // }
 
   function resetForNewGame() {
     score = 0;
@@ -543,12 +446,8 @@ let block = require("./Block.js");
     updateScoreDisplay(score);
   }
 
+  // score post request game sends to rails after a game
   function updateRailsLeaderboard(userId,score) {
-
-    const scoresApiUrl = '/api/scores/new';
-
-    // this is the post request the js uses to send the game score to rails when a game finished
-    
     console.log('in post request')
     var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
     var xhr = new XMLHttpRequest();
@@ -557,8 +456,6 @@ let block = require("./Block.js");
     xhr.setRequestHeader('X-CSRF-Token', csrfToken);
     xhr.onload = function () { console.log('Scores API post request success'); };
     xhr.send(JSON.stringify({ score: { "val": score, "user_id": userId }}));
-
-
   }
 
   function sendFakeScoreRequest() {
@@ -576,20 +473,12 @@ let block = require("./Block.js");
       updateScoreDisplay(score);
     }
     clearBoardBetweenFrames();
-    //makeGrid();
-    //drawText();
+    
     drawLanded();
     drawFallingBlock();
     frame++;
     requestAnimationFrame(draw);
   }
-
-
-
-  // event listeners
-  // for testing - "next" button below board
-  // (make sure moveDown() in draw() is uncommented)
-  //document.getElementById("next").addEventListener("click", drawOnEvent);
 
   // event listener for all keystrokes
   document.onkeydown = function(e) {
