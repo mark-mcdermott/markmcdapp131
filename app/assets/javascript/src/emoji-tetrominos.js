@@ -431,7 +431,7 @@ let block = require("./Block.js");
 
   function resetForNewGame() {
     score = 0;
-    level = 0;
+    level = 1;
     speed = 125;
     updateScoreDisplay(score);
     updateLevelDisplay(level);

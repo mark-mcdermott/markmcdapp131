@@ -11,9 +11,12 @@ class ApplicationController < ActionController::Base
   helper_method :get_version
 
   def get_version(date) 
+    # time in Central US time
     versions = [
-      { date: '5/20/22', version: '1.0' }
+      { date: '5/20/22 00:00:00', version: '1.0' },
+      { date: '5/24/22 16:30:00', version: '1.1' }
     ]
+    # todo - calculate version here!!
     '1.0'
   end
 
