@@ -654,7 +654,7 @@ let block = require("./Block.js");
   }
 
   function checkSpeedUp() {
-    speed = initialSpeed - level;
+    speed = initialSpeed - level * 2;
   } // spawns new block at top
   // (todo: x-pos will be random & will account for block width
   //        so not over either edge)

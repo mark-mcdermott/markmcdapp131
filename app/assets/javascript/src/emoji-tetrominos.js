@@ -344,7 +344,7 @@ let block = require("./Block.js");
 
   function checkSpeedUp() {
 
-    speed = initialSpeed - level;
+    speed = initialSpeed - level * 2;
   }
 
   // spawns new block at top
