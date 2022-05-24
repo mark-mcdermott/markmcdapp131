@@ -1,12 +1,17 @@
 class ApplicationController < ActionController::Base
 
   before_action :logged_in_authorized, :admin_authorized
+  helper_method :active_page?
   helper_method :title_tag
   helper_method :current_user_is_admin?
   helper_method :current_user 
   helper_method :logged_in?
   helper_method :current_user_id_class
   helper_method :bootstrap_class_for
+
+  def active_page?(current_page, this_page)
+    current_page==this_page ? 'nav-link active' : 'nav-link'
+  end
 
   def title_tag(page)
     title = 'Emoji Tetris'

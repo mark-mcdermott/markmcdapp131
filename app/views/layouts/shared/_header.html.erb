@@ -8,20 +8,20 @@
           </button>
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-              <li class="nav-item"><%= link_to 'Home', '/', class: 'nav-link' %></li>
-              <li class="nav-item"><%= link_to 'About', '/about', class: 'nav-link' %></li>
-              <li class="nav-item"><%= link_to 'Leaderboard', '/leaderboard', class: 'nav-link' %></li>
+              <li class="nav-item"><%= link_to 'Home', '/', class: active_page?(@page,'') %></li>
+              <li class="nav-item"><%= link_to 'About', '/about', class: active_page?(@page,'About') %></li>
+              <li class="nav-item"><%= link_to 'Leaderboard', '/leaderboard', class: active_page?(@page,'Leaderboard') %></li>
               <% if logged_in? %>
-                <li class="nav-item"><%= link_to 'Users', '/users', class: 'nav-link' %></li>
+                <li class="nav-item"><%= link_to 'Users', '/users', class: active_page?(@page,'Users') %></li>
               <% end %>
 
               <% if !logged_in? %>
-                <li class="nav-item"><%= link_to 'Log in', '/login', class: 'nav-link' %></li>
+                <li class="nav-item"><%= link_to 'Log in', '/login', class: active_page?(@page,'Log In') %></li>
               <% else %>
-                <li class="nav-item"><%= button_to 'Log out', '/logout', method: :delete, class: 'nav-link' %></li>
+                <li class="nav-item"><%= button_to 'Log out', '/logout', method: :delete, class: active_page?(@page,'Log Out') %></li>
               <% end %>
               <% if !logged_in? %>
-                <li class="nav-item"><%= link_to 'Sign up', '/signup', method: :get, class: 'nav-link' %></li>
+                <li class="nav-item"><%= link_to 'Sign up', '/signup', method: :get, class: active_page?(@page,'Sign Up') %></li>
               <% end %>
 
           </div>

@@ -7,18 +7,19 @@ namespace :seed do
 
   desc "reset prod db"
   task :reset_prod_db => :environment do
+    Seed.destroy_all
     User.destroy_all
   end
 
   desc "seed users"
   task :users => :environment do
     User.create([
-      {username: "mark", password: "password", pravatar: 70},
-      {username: "tim", password: "password", pravatar: 69},
-      {username: "jane", password: "password", pravatar: 49},
-      {username: "jim", password: "password", pravatar: 51},
-      {username: "horton", password: "password", pravatar: 50},
-      {username: "keanu", password: "password", pravatar: 54}
+      {username: "mark", password: "password", pravatar: 70, admin: true},
+      {username: "tim", password: "password", pravatar: 69, admin: false},
+      {username: "jane", password: "password", pravatar: 49, admin: false},
+      {username: "jim", password: "password", pravatar: 51, admin: false},
+      {username: "horton", password: "password", pravatar: 50, admin: false},
+      {username: "keanu", password: "password", pravatar: 54, admin: false}
     ])
   end
 
