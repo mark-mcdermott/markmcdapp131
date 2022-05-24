@@ -6,11 +6,10 @@
   - To install RVM, you might try some steps like [these](https://nrogap.medium.com/install-rvm-in-macos-step-by-step-d3b3c236953b), or just follow the steps on the [RVM homepage](https://rvm.io/rvm/install)
 - `rvm use ruby-3.0.0`
 - Install Rails
-  - `gem install rails`
+  - `gem install rails --no-document`
   - this app is is written with rails `7.0.3`
 - `npm install --global yarn`
 - `yarn global add sass`
-- `gem install rails --no-document`
 - `gem install bundler`
 - `npm install --global gulp-cli`
 - Postgres
@@ -21,7 +20,7 @@
 - install dependencies: `bundle install`
 - run the app: `./bin/dev`
 - go to `http://127.0.0.1:3000` in your browser
-- in another tab:
+- in another console tab:
   - do the migrations: `rails db:migrate`
   - seed the data: `rake seed:dev`
 - refresh your `http://127.0.0.1:3000` tab
@@ -32,7 +31,7 @@
 - Login to Heroku with CLI Tools: `heroku login`
 - Once you've committed git changes, push with: `git push heroku login`
 - (so once everything is set up, the workflow is with every change 1) push to github 2) to push to heroku. Heroku automatically restarts the app on every heroku push)
-- go to `https://markmcdapp128.herokuapp.com` in your browser
+- go to `https://markmcdapp131.herokuapp.com` in your browser
 - (note that after any db changes, you'll have to run the migrations, `heroku run rails db:migrate`. also, if you ever need to run the seeds on Heroku, use the prod seeds, `heroku run rake seed:prod`)
 
 # To Make Javascript Changes 
