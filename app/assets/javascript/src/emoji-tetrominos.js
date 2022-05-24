@@ -345,19 +345,6 @@ let block = require("./Block.js");
   function checkSpeedUp() {
 
     speed = initialSpeed - level;
-    // console.log(speed)
-    
-    // console.log(frame, speed);
-    // if (frame % 1000 === 0) {
-    //   if (speed > 49) {
-    //     //console.log('a');
-    //     speed -= 25;
-    //   }
-    //   if (speed > 10 && speed < 50) {
-    //     //console.log('b');
-    //     speed -= 5;
-    //   }
-    // }
   }
 
   // spawns new block at top
@@ -474,8 +461,9 @@ let block = require("./Block.js");
     updateLevelDisplay(level);
   }
 
-  function setBgColor(color) {
-    ctx.fillStyle = color;
+  function setBgColor(level) {
+    colors = ['#ffeaa7','#81ecec','#74b9ff','#a29bfe','#ffeaa7','#fab1a0','#ff7675','#fd79a8','#fdcb6e','#e17055','#d63031','#e84393'];
+    ctx.fillStyle = colors[level - 1];
     ctx.fillRect(0, 0, canvas.width, canvas.height);
   }
 
@@ -512,7 +500,7 @@ let block = require("./Block.js");
     }
     clearBoardBetweenFrames();
     
-    setBgColor('#ffeaa7');
+    setBgColor(level);
     drawLanded();
     drawFallingBlock();
     frame++;
