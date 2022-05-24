@@ -1,11 +1,21 @@
 class ApplicationController < ActionController::Base
 
   before_action :logged_in_authorized, :admin_authorized
+  helper_method :title_tag
   helper_method :current_user_is_admin?
   helper_method :current_user 
   helper_method :logged_in?
   helper_method :current_user_id_class
   helper_method :bootstrap_class_for
+
+  def title_tag(page)
+    title = 'Emoji Tetris'
+    puts page
+    if page && page != ''
+      title += ' | ' + page
+    end
+    title
+  end
 
   def admin_authorized
     puts 'checking admin status: ' + current_user_is_admin?.to_s
