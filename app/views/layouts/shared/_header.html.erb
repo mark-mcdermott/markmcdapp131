@@ -13,10 +13,6 @@
               <li class="nav-item"><%= link_to 'Leaderboard', '/leaderboard', class: active_page?(@page,'Leaderboard') %></li>
               <% if logged_in? %>
                 <li class="nav-item"><%= link_to 'Users', '/users', class: active_page?(@page,'Users') %></li>
-              <% end %>
-
-              <% if !logged_in? %>
-                <li class="nav-item"><%= link_to 'Log in', '/login', class: active_page?(@page,'Log In') %></li>
                 <li class="nav-item"><%= link_to 'Log in', '/login', class: active_page?(@page,'Log In') %></li>
               <% else %>
                 <li class="nav-item dropdown">
