@@ -135,6 +135,17 @@ h1 {
 	font-size: 4rem;
 	font-weight: bold;
 }
+ 
+.card {
+  margin: 0 0 15px; 
+  flex-direction: row;
+  .card-body {
+    padding: 35px 30px; 
+    p {
+      margin: 15px 0 0;
+    }
+  }
+}
 
 .game {
 

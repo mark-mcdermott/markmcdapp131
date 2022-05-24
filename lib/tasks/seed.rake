@@ -13,12 +13,12 @@ namespace :seed do
   desc "seed users"
   task :users => :environment do
     User.create([
-      {username: "mark", password: "password"},
-      {username: "tim", password: "password"},
-      {username: "jane", password: "password"},
-      {username: "jim", password: "password"},
-      {username: "horton", password: "password"},
-      {username: "keanu", password: "password"}
+      {username: "mark", password: "password", pravatar: 70},
+      {username: "tim", password: "password", pravatar: 69},
+      {username: "jane", password: "password", pravatar: 49},
+      {username: "jim", password: "password", pravatar: 51},
+      {username: "horton", password: "password", pravatar: 50},
+      {username: "keanu", password: "password", pravatar: 54}
     ])
   end
 

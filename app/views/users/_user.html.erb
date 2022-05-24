@@ -1,7 +1,7 @@
-<div id="<%= dom_id user %>">
-  <p>
-    <strong>Username:</strong>
-    <%= user.username %>
-  </p>
-
+<div id="<%= dom_id user %>" class="card">
+  <img src='https://i.pravatar.cc/150?img=<%= user.pravatar.to_s %>' alt='avatar' width='150' />
+  <div class='card-body'>
+    <h5 class='card=title'><%= user.username %></h5>
+    <p class='card=text'>pravatar: <%= user.pravatar.to_s %></p>
+  </div>
 </div>
