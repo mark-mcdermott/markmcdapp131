@@ -8,19 +8,22 @@
     <tr>
       <th>#</th>
       <th>score</th>
+      <th>level</th>
       <th>user</th>
       <th>date</th>
-      <th>game<br>version</th>
+      <th>game<br>version*</th>
     <tr>
     <% @scores.each_with_index do |score, index| %>
       <% @user = User.find_by_id(score.user_id) %>
       <tr id="<%= dom_id score %>">
         <td><%= index + 1 %></td>
         <td><%= score.val %></td>
+        <td><%= get_level(score.val) %></td>
         <td><img class='leaderboard-avatar' src='https://i.pravatar.cc/20?img=<%= @user.pravatar.to_s %>' alt='avatar' width='20' /><%= @user.username %></td>
-        <td><%= score.created_at.strftime("%_m/%-d/%y") %>
-        <td><%= get_version(score.created_at) %>
+        <td><%= score.created_at.strftime("%_m/%-d/%y") %></td>
+        <td><%= get_version(score.created_at) =%></td>
       </tr>
     <% end %>
   </table>
+  <p class='footnote'>* As the app development goes through changes, scores from different game vesions may not be comparable</p>
 </div>

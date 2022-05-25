@@ -8,16 +8,34 @@ class ApplicationController < ActionController::Base
   helper_method :logged_in?
   helper_method :current_user_id_class
   helper_method :bootstrap_class_for
+  helper_method :get_level
   helper_method :get_version
 
-  def get_version(date) 
-    # time in Central US time
-    versions = [
-      { date: '5/20/22 00:00:00', version: '1.0' },
-      { date: '5/24/22 16:30:00', version: '1.1' }
-    ]
-    # todo - calculate version here!!
-    '1.0'
+  # time in Central US time
+  # TODO: probably move this to its own json file
+  @@versions = [
+    {'date' => '2022-05-20 00:00:00', 'version' => '1.0'},
+    {'date' => '2022-05-24 16:30:00', 'version' => '1.1'},
+    {'date' => '2022-05-25 00:00:00', 'version' => '1.2'},
+  ]
+
+  def get_level(score) 
+    rowsCleared = score.to_f / 1000;
+    ((rowsCleared / 10) + 1).floor;
+  end
+
+  def get_version(date)       
+    zone = "Central Time (US & Canada)"  
+    v_1_1_datetime = ActiveSupport::TimeZone[zone].parse(@@versions[1]['date'])
+    v_1_2_datetime = ActiveSupport::TimeZone[zone].parse(@@versions[2]['date'])
+
+    if (date < v_1_1_datetime)
+      '1.0'
+    elsif (v_1_1_datetime < date) && (date < v_1_2_datetime)
+      '1.1'
+    elsif (v_1_2_datetime < date)
+      '1.2'
+    end
   end
 
   def active_page?(current_page, this_page)
