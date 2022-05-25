@@ -14,7 +14,7 @@ namespace :seed do
   desc "seed users"
   task :users => :environment do
     User.create([
-      {username: "mark", password: "password", pravatar: 70, admin: true},
+      {username: "mark", password: "password", avatar: "https://cdn-qzukl19j.files-simplefileupload.com/static/blobs/proxy/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBcVdwIiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--a445c2ec87fd3834eb564ddd3d1517da6b60d278/headshot.jpg", admin: true},
       {username: "tim", password: "password", pravatar: 69, admin: false},
       {username: "jane", password: "password", pravatar: 49, admin: false},
       {username: "jim", password: "password", pravatar: 51, admin: false},

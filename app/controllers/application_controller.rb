@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
 
+  before_action :prevent_caching
   before_action :logged_in_authorized, :admin_authorized
   helper_method :active_page?
   helper_method :title_tag
@@ -94,6 +95,14 @@ class ApplicationController < ActionController::Base
       else
         flash_type.to_s
     end
+  end
+
+  private
+
+  def prevent_caching
+    response.headers["Cache-Control"] = "no-cache, no-store"
+    response.headers["Pragma"] = "no-cache"
+    response.headers["Expires"] = "Fri, 01 Jan 1990 00:00:00 GMT"
   end
 
 end

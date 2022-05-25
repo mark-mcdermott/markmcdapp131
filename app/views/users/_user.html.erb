@@ -1,5 +1,5 @@
 <div id="<%= dom_id user %>" class="card">
-  <img src='<%= user.avatar.to_s %>' alt='avatar' />
+  <img src="https://i.pravatar.cc/150?img=<%= user.pravatar %>" alt='avatar' />
   <div class='card-body'>
     <h5 class='card-title'><%= user.username %></h5>
     <% if @high_score %>
