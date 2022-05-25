@@ -11,6 +11,9 @@ class UsersController < ApplicationController
 
   # GET /users/1 or /users/1.json
   def show
+    @high_score = Score.where(user_id: @user.id).order(val: :desc).first
+    puts @high_score.val
+    puts @high_score.created_at
   end
 
   # GET /users/new
@@ -69,6 +72,6 @@ class UsersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def user_params
-      params.require(:user).permit(:username, :pravatar, :admin, :password)
+      params.require(:user).permit(:username, :pravatar, :avatar, :admin, :password)
     end
 end

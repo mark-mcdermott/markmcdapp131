@@ -1,7 +1,9 @@
 <div id="<%= dom_id user %>" class="card">
-  <img src='https://i.pravatar.cc/150?img=<%= user.pravatar.to_s %>' alt='avatar' width='150' />
+  <img src='<%= user.avatar.to_s %>' alt='avatar' />
   <div class='card-body'>
-    <h5 class='card=title'><%= user.username %></h5>
-    <p class='card=text'>pravatar: <%= user.pravatar.to_s %></p>
+    <h5 class='card-title'><%= user.username %></h5>
+    <% if @high_score %>
+      <p class='card-text'>High score: <%= number_with_delimiter(@high_score.val, :delimiter => ',') %> (<%= @high_score.created_at.strftime("%-m/%-d/%y") %>)</p>
+    <% end %>
   </div>
 </div>
