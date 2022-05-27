@@ -61,21 +61,21 @@ workflows:
                 - staging
   ship_to_staging:
     jobs:
-      - run-tests
-      - push-to-staging:
-          requires:
-            - run-tests
+      - run-tests:
           filters:
             branches:
               only:
                 - staging
+      - push-to-staging:
+          requires:
+            - run-tests
   ship_to_prod:
     jobs:
-      - run-tests
+      - run-tests:
+          filters:
+                branches:
+                  only:
+                    - main
       - push-to-prod:
           requires:
             - run-tests
-          filters:
-            branches:
-              only:
-                - main
