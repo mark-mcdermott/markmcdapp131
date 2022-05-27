@@ -639,7 +639,7 @@ let block = require("./Block.js");
     // if (frame % (speed / 5) === 0) {
     if (frame % speed === 0) {
       if (!fallingBlock) {
-        spawnBlock();
+        spawnBlock(4);
       }
     } // console.log(frame % speed);
 
@@ -662,10 +662,16 @@ let block = require("./Block.js");
   // (scoping issues), so scrapping for now...
 
 
-  function spawnBlock() {
+  function spawnBlock(debugBlockNum) {
     let blockType;
     let x;
-    const numBlock = Math.floor(Math.random() * 7);
+    let numBlock;
+
+    if (debugBlockNum) {
+      numBlock = debugBlockNum;
+    } else {
+      numBlock = Math.floor(Math.random() * 7);
+    }
 
     switch (numBlock) {
       case 0:
@@ -839,7 +845,7 @@ let block = require("./Block.js");
 
 
   setInitialStats();
-  spawnBlock();
+  spawnBlock(4);
   draw(); // call main draw loop
 })();
 
