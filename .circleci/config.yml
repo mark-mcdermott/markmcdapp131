@@ -1,0 +1,16 @@
+version: 2.1
+orbs:
+  heroku: circleci/heroku@0.0.10
+jobs:
+  stage:
+    executor: heroku/default
+    steps:
+      - checkout
+      - heroku/install
+      - heroku/deploy-via-git:
+          app-name: markmcdapp133
+
+workflows:
+  stage_test_deploy:
+    jobs:
+      - stage
