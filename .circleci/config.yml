@@ -32,7 +32,7 @@ jobs:
       - run:
           name: Seed 
           command: heroku run rake seed:prod --app markmcdapp131
-  build-and-test:
+  run-tests:
     docker:
       - image: 'cimg/ruby:3.0.0-node'
     steps:
@@ -51,12 +51,20 @@ jobs:
           command: bundle install
 
 workflows:
-  test_and_stage:
+  run_tests:
     jobs:
-      - build-and-test
+      - test
+        filters:
+          branches:
+            ignore:
+              - main
+              - staging
+  ship_to_staging:
+    jobs:
+      - test
       - push-to-staging:
           requires:
-            - build-and-test
+            - test
           filters:
             branches:
               only: 
