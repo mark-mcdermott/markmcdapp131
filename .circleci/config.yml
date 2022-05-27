@@ -56,5 +56,5 @@ workflows:
       - run-tests
           filters:
             branches:
-              ignore:
+              only:
                 - main
