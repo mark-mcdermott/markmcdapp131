@@ -53,4 +53,4 @@ jobs:
 workflows:
   ship_to_staging:
     jobs:
-      - test
+      - run-tests
