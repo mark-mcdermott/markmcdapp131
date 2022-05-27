@@ -51,9 +51,20 @@ jobs:
           command: bundle install
 
 workflows:
+  run_tests:
+    jobs:
+      - run-tests:
+          filters:
+            branches:
+              ignore:
+                - main
   ship_to_staging:
     jobs:
-      - run-tests
-        filters:
-          branches:
-            only: main
+      - test
+      - push-to-staging:
+          requires:
+            - test
+          filters:
+            branches:
+              only:
+                - staging
