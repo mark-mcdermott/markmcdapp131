@@ -63,7 +63,7 @@ workflows:
       - run-tests
       - push-to-staging:
           requires:
-            - test
+            - run-tests
           filters:
             branches:
               only:
