@@ -11,7 +11,7 @@ jobs:
           app-name: markmcdapp133
       - run:
           name: migrate 
-          command: heroku run rake db:migrate
+          command: heroku run rake db:migrate --app markmcdapp131
 workflows:
   stage_test_deploy:
     jobs:
