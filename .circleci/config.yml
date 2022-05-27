@@ -51,10 +51,13 @@ jobs:
           command: bundle install
 
 workflows:
-  run_tests:
+  ship_to_staging:
     jobs:
-      - run-tests
+      - test
+      - push-to-staging:
+          requires:
+            - test
           filters:
             branches:
               only:
-                - main
+                - staging
