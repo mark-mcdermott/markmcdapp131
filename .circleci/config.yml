@@ -53,4 +53,4 @@ jobs:
 workflows:
   run_tests:
     jobs:
-      - test
+      - run-tests
