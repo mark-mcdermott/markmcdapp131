@@ -12,6 +12,9 @@ jobs:
       - run:
           name: migrate 
           command: heroku run rake db:migrate --app markmcdapp131
+      - run:
+          name: seed 
+          command: heroku run rake seed:prod
 workflows:
   stage_test_deploy:
     jobs:
