@@ -6,7 +6,7 @@ orbs:
   heroku: circleci/heroku@0.0.10
 
 jobs:
-  stage:
+  push-to-staging:
     executor: heroku/default
     steps:
       - checkout
@@ -19,6 +19,19 @@ jobs:
       - run:
           name: Seed 
           command: heroku run rake seed:prod --app markmcdapp133
+  push-to-prod:
+    executor: heroku/default
+    steps:
+      - checkout
+      - heroku/install
+      - heroku/deploy-via-git:
+          app-name: markmcdapp131
+      - run:
+          name: Migrate 
+          command: heroku run rake db:migrate --app markmcdapp131
+      - run:
+          name: Seed 
+          command: heroku run rake seed:prod --app markmcdapp131
   build-and-test:
     docker:
       - image: 'cimg/ruby:3.0.0-node'
@@ -38,13 +51,20 @@ jobs:
           command: bundle install
 
 workflows:
-  stage_test_deploy:
+  test_and_stage:
     jobs:
       - build-and-test
-      - stage:
+      - push-to-staging:
           requires:
             - build-and-test
           filters:
             branches:
               only: 
                 - staging
+  ship_to_prod:
+    jobs:
+      - push-to-prod:
+          filters:
+            branches:
+              only: 
+                - main
