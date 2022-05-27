@@ -54,24 +54,3 @@ workflows:
   run_tests:
     jobs:
       - test
-        filters:
-          branches:
-            ignore:
-              - main
-  ship_to_staging:
-    jobs:
-      - test
-      - push-to-staging:
-          requires:
-            - test
-          filters:
-            branches:
-              only: 
-                - staging
-  ship_to_prod:
-    jobs:
-      - push-to-prod:
-          filters:
-            branches:
-              only: 
-                - main
