@@ -58,7 +58,6 @@ workflows:
           branches:
             ignore:
               - main
-              - staging
   ship_to_staging:
     jobs:
       - test
