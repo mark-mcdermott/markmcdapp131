@@ -10,8 +10,8 @@ jobs:
       - heroku/deploy-via-git:
           app-name: markmcdapp133
       - run:
-        name: migrate 
-        command: heroku run rake db:migrate
+          name: migrate 
+          command: heroku run rake db:migrate
 workflows:
   stage_test_deploy:
     jobs:
