@@ -60,7 +60,7 @@ workflows:
                 - main
   ship_to_staging:
     jobs:
-      - test
+      - run-tests
       - push-to-staging:
           requires:
             - test
