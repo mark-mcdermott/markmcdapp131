@@ -54,7 +54,6 @@ workflows:
   ship_to_staging:
     jobs:
       - run-tests
-        filters:
-          branches:
-            only:
-              - main
+          filters:
+            branches:
+              only: main
