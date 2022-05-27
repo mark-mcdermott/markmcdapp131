@@ -54,3 +54,7 @@ workflows:
   run_tests:
     jobs:
       - run-tests
+        filters:
+          branches:
+            ignore:
+              - main
