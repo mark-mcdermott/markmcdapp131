@@ -69,3 +69,10 @@ workflows:
             branches:
               only:
                 - staging
+  ship_to_prod:
+    jobs:
+      - push-to-prod:
+          filters:
+            branches:
+              only:
+                - main
