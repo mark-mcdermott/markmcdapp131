@@ -15,6 +15,10 @@ jobs:
       - run:
           name: Seed 
           command: heroku run rake seed:prod --app markmcdapp133
+      - run:
+          command: heroku run rake seed:prod --app markmcdapp133
+      - run:
+          command: heroku run ./bin/rails test test/controllers/game_controller_test.rb
 workflows:
   stage_test_deploy:
     jobs:
