@@ -1,6 +1,10 @@
 version: 2.1
+
 orbs:
+  ruby: circleci/ruby@1.8.0
+  node: circleci/node@5.0.2
   heroku: circleci/heroku@0.0.10
+
 jobs:
   stage:
     executor: heroku/default
@@ -15,10 +19,31 @@ jobs:
       - run:
           name: Seed 
           command: heroku run rake seed:prod --app markmcdapp133
+  build-and-test:
+    docker:
+      - image: 'cimg/ruby:3.0.0-node'
+    steps:
+      - checkout
+      - ruby/install-deps
+      - node/install-packages:
+          pkg-manager: yarn
       - run:
-          name: Test
-          command: heroku run ./bin/rails test test/controllers/game_controller_test.rb --app markmcdapp133
+          name: Install NPM Globals
+          command: sudo yarn global add sass gulp-cli
+      - run:
+          name: Transpiling JavaScript
+          command: gulp scripts
+      - run:
+          name: Running Bundle Install
+          command: bundle install
+
 workflows:
   stage_test_deploy:
     jobs:
-      - stage
+      - build-and-test
+      - stage:
+        requires:
+          - build-and-test
+        filters:
+          branches:
+            only: prod
