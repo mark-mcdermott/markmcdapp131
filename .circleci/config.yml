@@ -42,9 +42,9 @@ workflows:
     jobs:
       - build-and-test
       - stage:
-        requires:
-          - build-and-test
-        filters:
-          branches:
-            only: 
-              - prod
+          requires:
+            - build-and-test
+          filters:
+            branches:
+              only: 
+                - prod
