@@ -54,10 +54,3 @@ workflows:
   ship_to_staging:
     jobs:
       - test
-      - push-to-staging:
-          requires:
-            - test
-          filters:
-            branches:
-              only:
-                - staging
