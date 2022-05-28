@@ -16,10 +16,10 @@ module.exports = class Block {
   constructor(letter, x, y) {
     this.letter = letter.toUpperCase();
     this[`_init${this.letter}`](x, y);
-  } // init L block (needs its initial coords)
+  } // init J block (needs its initial coords)
 
 
-  _initL(x, y) {
+  _initJ(x, y) {
     this.height = 2; // L block height (for floor/block collision)
 
     this.width = 3; // L block width (for wall collision)
@@ -29,15 +29,34 @@ module.exports = class Block {
     this.curRotation = 0; // current pos in rotations array
 
     this.emoji = "😀";
-    this.coords = [[x, y], [x, y + 1], [x + 1, y], [x + 2, y]];
+    this.coords = [[x, y], [x, y + 1], [x + 1, y], [x + 2, y]]; // this is not an "L" - actually a "J" (on it's back) as written here
 
     this.rotate = function () {
       // gets current x & y
       let x = this.coords[0][0];
-      let y = this.coords[0][1]; // if L is vert, checks for collisions
+      let y = this.coords[0][1]; // if J is vert, checks for collisions
 
-      if (this.curRotation === 0 && y < 1 || this.curRotation === 1 && x < 1 || this.curRotation === 1 && x > 7 || this.curRotation === 3 && x < 1) {
-        return;
+      if (this.curRotation === 0 && y < 1) {
+        // console.log('rotation 0')
+        if (y < 1) {
+          return;
+        }
+      } else if (this.curRotation === 1) {
+        // console.log('rotation 1')
+        if (x < 1) {
+          return;
+        }
+      } else if (this.curRotation === 1) {
+        // console.log('rotation 2')
+        if (x > 7) {
+          return;
+        }
+      } else if (this.curRotation === 3) {
+        // console.log('rotation 3')
+        // console.log(x)
+        if (x < 1) {
+          return;
+        }
       }
 
       if (x >= 0 && x < 9) {
@@ -70,10 +89,10 @@ module.exports = class Block {
         }
       }
     };
-  } // init J block (needs its initial coords)
+  } // init L block (needs its initial coords)
 
 
-  _initJ(x, y) {
+  _initL(x, y) {
     this.height = 2; // J block height (for floor/block collision)
 
     this.width = 3; // J block width (for wall collision)
@@ -88,7 +107,7 @@ module.exports = class Block {
     this.rotate = function () {
       // gets current x & y
       let x = this.coords[0][0];
-      let y = this.coords[0][1]; // if J is vert, checks for collisions
+      let y = this.coords[0][1]; // if L is vert, checks for collisions
 
       if (this.curRotation === 0 && y < 1 || this.curRotation === 1 && x < 1 || this.curRotation === 1 && x > 7 || this.curRotation === 3 && x < 1) {
         return;
@@ -99,24 +118,24 @@ module.exports = class Block {
         this.curRotation = (this.curRotation + 1) % 4; // rotates to new curRotation
 
         switch (this.curRotation) {
-          /* down facing J block */
+          /* down facing L block */
           case 0:
             this.coords = [[x - 1, y - 1], [x, y - 1], [x + 1, y - 1], [x + 1, y]];
             break;
 
-          /* left facing J block */
+          /* left facing L block */
 
           case 1:
             this.coords = [[x, y + 1], [x + 1, y + 1], [x + 1, y], [x + 1, y - 1]];
             break;
 
-          /* up facing J block */
+          /* up facing L block */
 
           case 2:
             this.coords = [[x, y - 2], [x, y - 1], [x + 1, y - 1], [x + 2, y - 1]];
             break;
 
-          /* right facing J block */
+          /* right facing L block */
 
           case 3:
             this.coords = [[x + 1, y + 2], [x + 1, y + 1], [x + 1, y], [x + 2, y]];
@@ -344,7 +363,9 @@ let block = require("./Block.js");
      "Pixel" is unit of height/width, 1/10 width of board.
     Each block is made of 4 pixels.
    */
+  blockToDebug = null; // set to null for regular game
   // frame counter (needed for block entrance timing)
+
   pixel = canWidth / 10;
   let frame = 0,
       initialSpeed = 35,
@@ -361,6 +382,7 @@ let block = require("./Block.js");
     blocks have hit the floor.  Every coordinate
     with a landed block will have that
     block's letter.
+     board is 10x20
    */
   landed = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]],
       score = 0,
@@ -523,7 +545,7 @@ let block = require("./Block.js");
       // TODO: run this check on every pixel in block, not just last
       // if not at right edge, move right
       let length = fallingBlock.coords.length;
-      let lastPixel = fallingBlock['coords'][length - 1];
+      let lastPixel = fallingBlock['coords'][length - 1]; // console.log(lastPixel)
 
       if (lastPixel[0] < 9) {
         // check if touching another block
@@ -591,12 +613,12 @@ let block = require("./Block.js");
         emoji = "🐶";
         break;
 
-      case 'J':
+      case 'L':
         // color = colorJ;
         emoji = "💩";
         break;
 
-      case 'L':
+      case 'J':
         // color = colorL;
         emoji = "😀";
         break;
@@ -639,7 +661,7 @@ let block = require("./Block.js");
     // if (frame % (speed / 5) === 0) {
     if (frame % speed === 0) {
       if (!fallingBlock) {
-        spawnBlock(4);
+        spawnBlock(blockToDebug);
       }
     } // console.log(frame % speed);
 
@@ -845,7 +867,7 @@ let block = require("./Block.js");
 
 
   setInitialStats();
-  spawnBlock(4);
+  spawnBlock(blockToDebug);
   draw(); // call main draw loop
 })();
 

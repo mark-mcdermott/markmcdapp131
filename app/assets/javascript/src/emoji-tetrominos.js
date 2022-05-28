@@ -18,6 +18,7 @@ let block = require("./Block.js");
 
       */
 
+      blockToDebug = null; // set to null for regular game
       // frame counter (needed for block entrance timing)
       pixel = canWidth / 10;
   let frame = 0,
@@ -37,6 +38,8 @@ let block = require("./Block.js");
         blocks have hit the floor.  Every coordinate
         with a landed block will have that
         block's letter.
+
+        board is 10x20
 
       */
 
@@ -219,6 +222,7 @@ let block = require("./Block.js");
       // if not at right edge, move right
       let length = fallingBlock.coords.length;
       let lastPixel = fallingBlock['coords'][length-1];
+      // console.log(lastPixel)
       if (lastPixel[0] < 9) {
 
         // check if touching another block
@@ -280,11 +284,11 @@ let block = require("./Block.js");
         // color = colorZ;
         emoji = "🐶";
         break;
-      case 'J':
+      case 'L':
         // color = colorJ;
         emoji = "💩";
         break;
-      case 'L':
+      case 'J':
         // color = colorL;
         emoji = "😀";
         break;
@@ -330,7 +334,7 @@ let block = require("./Block.js");
     // if (frame % (speed / 5) === 0) {
       if (frame % (speed) === 0) {
       if (!fallingBlock) {
-        spawnBlock(4);
+        spawnBlock(blockToDebug);
       }
     }
     // console.log(frame % speed);
@@ -494,6 +498,7 @@ let block = require("./Block.js");
     updateRailsLeaderboard(1,1000);
   }
 
+  
   // main draw loop (calls itself recursively at end)
   function draw() {
     checkSpeedUp();
@@ -521,7 +526,7 @@ let block = require("./Block.js");
 
   // start game
   setInitialStats();
-  spawnBlock(4);
+  spawnBlock(blockToDebug);
   draw();  // call main draw loop
 
 })();

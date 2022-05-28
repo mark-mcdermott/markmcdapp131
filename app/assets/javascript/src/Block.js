@@ -24,27 +24,43 @@ module.exports = class Block {
   }
 
 
-    // init L block (needs its initial coords)
-    _initL(x, y)
+    // init J block (needs its initial coords)
+    _initJ(x, y)
     {
       this.height = 2;       // L block height (for floor/block collision)
       this.width = 3;        // L block width (for wall collision)
       this.numPix = 4;       // num pixels in L block
       this.curRotation = 0;  // current pos in rotations array
       this.emoji = "😀";
-      this.coords = [ [ x, y ], [ x, y + 1 ], [ x + 1, y ], [ x + 2, y ]  ];
+      this.coords = [ [ x, y ], [ x, y + 1 ], [ x + 1, y ], [ x + 2, y ]  ]; 
       this.rotate = function() {
 
         // gets current x & y
         let x = this.coords[0][0];
         let y = this.coords[0][1];
 
-        // if L is vert, checks for collisions
-        if ( (this.curRotation === 0 && y < 1)
-           || (this.curRotation === 1 && x < 1)
-           || (this.curRotation === 1 && x > 7)
-           || (this.curRotation === 3 && x < 1) ) {
-          return;
+        // if J is vert, checks for collisions
+        if (this.curRotation === 0 && y < 1) {
+          // console.log('rotation 0')
+          if (y < 1) {
+            return;
+          }
+        } else if (this.curRotation === 1) {
+          // console.log('rotation 1')
+          if (x < 1) {
+            return;
+          }          
+        } else if (this.curRotation === 1) {
+          // console.log('rotation 2')
+          if (x > 7) {
+            return;
+          }          
+        } else if (this.curRotation === 3) {
+          // console.log('rotation 3')
+          // console.log(x)
+          if (x < 1) {
+            return;
+          }
         }
 
         if ( (x >= 0) && (x < 9) ) {
@@ -84,8 +100,8 @@ module.exports = class Block {
 
 
 
-  // init J block (needs its initial coords)
-  _initJ(x, y)
+  // init L block (needs its initial coords)
+  _initL(x, y)
   {
     this.height = 2;       // J block height (for floor/block collision)
     this.width = 3;        // J block width (for wall collision)
@@ -99,7 +115,7 @@ module.exports = class Block {
       let x = this.coords[0][0];
       let y = this.coords[0][1];
 
-      // if J is vert, checks for collisions
+      // if L is vert, checks for collisions
       if ( (this.curRotation === 0 && y < 1)
          || (this.curRotation === 1 && x < 1)
          || (this.curRotation === 1 && x > 7)
@@ -115,22 +131,22 @@ module.exports = class Block {
         // rotates to new curRotation
         switch(this.curRotation) {
 
-          /* down facing J block */
+          /* down facing L block */
           case 0:
             this.coords = [ [ x - 1, y - 1 ], [ x, y - 1 ], [ x + 1, y - 1 ], [ x + 1, y ] ];
             break;
 
-          /* left facing J block */
+          /* left facing L block */
           case 1:
             this.coords = [ [ x, y + 1 ], [ x + 1, y + 1], [ x + 1, y ], [ x + 1, y - 1 ]  ];
             break;
 
-          /* up facing J block */
+          /* up facing L block */
           case 2:
             this.coords = [ [ x, y - 2 ], [ x, y - 1 ], [ x + 1, y - 1 ], [ x + 2, y - 1 ]  ];
             break;
 
-          /* right facing J block */
+          /* right facing L block */
           case 3:
             this.coords = [ [ x + 1, y + 2 ], [ x + 1, y + 1 ], [ x + 1, y ], [ x + 2, y ]  ];
             break;
