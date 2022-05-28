@@ -23,7 +23,6 @@ module.exports = class Block {
     this[`_init${this.letter}`](x, y);
   }
 
-
     // init J block (needs its initial coords)
     _initJ(x, y)
     {
@@ -32,6 +31,7 @@ module.exports = class Block {
       this.numPix = 4;       // num pixels in L block
       this.curRotation = 0;  // current pos in rotations array
       this.emoji = "😀";
+      this.letter = 'j';
       this.coords = [ [ x, y ], [ x, y + 1 ], [ x + 1, y ], [ x + 2, y ]  ]; 
       this.rotate = function() {
 
@@ -108,6 +108,7 @@ module.exports = class Block {
     this.numPix = 4;       // num pixels in J block
     this.curRotation = 0;  // current pos in rotations array
     this.emoji = "💩";
+    this.letter = 'l';
     this.coords = [ [ x, y ], [ x + 1, y ], [ x + 2, y ], [ x + 2, y + 1 ]  ];
     this.rotate = function() {
 
@@ -158,62 +159,16 @@ module.exports = class Block {
     };
   }
 
-  // init Z block (needs its initial coords)
+  // init S block (needs its initial coords)
   _initZ(x, y)
   {
     this.height = 2;       // Z block height (for floor/block collision)
     this.width = 3;        // Z block width (for wall collision)
-    this.numPix = 4;       // num pixels in Z block
-    this.curRotation = 0;  // current pos in rotations array
-    this.emoji = "🐶";
-    this.coords = [ [ x, y ], [ x + 1, y ], [ x + 1, y + 1 ], [ x + 2, y + 1 ] ];
-    this.rotate = function() {
-
-      // gets current x & y
-      let x = this.coords[0][0];
-      let y = this.coords[0][1];
-
-      // if Z is vert, checks for collisions
-      if (this.curRotation === 0 && y < 1) {
-        return;
-      } else if (this.curRotation === 1 && x < 1) {
-        return;
-      }
-
-      if ( (x >= 0) && (x < 9) ) {
-
-        // advances curRotation (always 0 or 1)
-        this.curRotation = (this.curRotation + 1) % 2;
-
-        // rotates to new curRotation
-        switch(this.curRotation) {
-
-          /* horiz Z block */
-          case 0:
-            this.coords = [ [ x, y ], [ x - 1, y ], [ x, y + 1 ], [ x + 1, y + 1] ];
-            break;
-
-          /* vert Z block */
-          case 1:
-            this.coords = [ [ x, y ], [ x, y + 1 ], [ x + 1, y ], [ x + 1, y - 1 ] ];
-            break;
-
-        }
-
-      }
-
-    };
-  }
-
-  // init S block (needs its initial coords)
-  _initS(x, y)
-  {
-    this.height = 2;       // S block height (for floor/block collision)
-    this.width = 3;        // S block width (for wall collision)
     this.numPix = 4;       // num pixels in S block
     this.curRotation = 0;  // current pos in rotations array
-    this.emoji = "🐮";
-    this.coords = [ [ x, y ], [ x + 1, y ], [ x + 1, y - 1 ], [ x + 2, y - 1 ] ];
+    this.emoji = "🐶";
+    this.letter = 'z';
+    this.coords = [ [ x, y ], [ x + 1, y ], [ x + 1, y + 1 ], [ x + 2, y + 1 ] ];
     this.rotate = function() {
 
       // gets current x & y
@@ -223,11 +178,9 @@ module.exports = class Block {
       // if S is vert, checks for collisions
       if (this.curRotation === 0 && y < 1) {
         return;
-      // if S is horiz, checks for collisions
       } else if (this.curRotation === 1 && x < 1) {
         return;
       }
-
 
       if ( (x >= 0) && (x < 9) ) {
 
@@ -239,10 +192,60 @@ module.exports = class Block {
 
           /* horiz S block */
           case 0:
-            this.coords = [ [ x - 1, y + 1 ], [ x, y + 1 ], [ x, y ], [ x + 1, y ] ];
+            this.coords = [ [ x, y ], [ x - 1, y ], [ x, y + 1 ], [ x + 1, y + 1] ];
             break;
 
           /* vert S block */
+          case 1:
+            this.coords = [ [ x, y ], [ x, y + 1 ], [ x + 1, y ], [ x + 1, y - 1 ] ];
+            break;
+
+        }
+
+      }
+
+    };
+  }
+
+  // init Z block (needs its initial coords)
+  _initS(x, y)
+  {
+    this.height = 2;       // S block height (for floor/block collision)
+    this.width = 3;        // S block width (for wall collision)
+    this.numPix = 4;       // num pixels in S block
+    this.curRotation = 0;  // current pos in rotations array
+    this.emoji = "🐮";
+    this.letter = 's';
+    this.coords = [ [ x, y ], [ x + 1, y ], [ x + 1, y - 1 ], [ x + 2, y - 1 ] ];
+    this.rotate = function() {
+
+      // gets current x & y
+      let x = this.coords[0][0];
+      let y = this.coords[0][1];
+
+      // if Z is vert, checks for collisions
+      if (this.curRotation === 0 && y < 1) {
+        return;
+      // if Z is horiz, checks for collisions
+      } else if (this.curRotation === 1 && x < 1) {
+        return;
+      }
+
+
+      if ( (x >= 0) && (x < 9) ) {
+
+        // advances curRotation (always 0 or 1)
+        this.curRotation = (this.curRotation + 1) % 2;
+
+        // rotates to new curRotation
+        switch(this.curRotation) {
+
+          /* horiz Z block */
+          case 0:
+            this.coords = [ [ x - 1, y + 1 ], [ x, y + 1 ], [ x, y ], [ x + 1, y ] ];
+            break;
+
+          /* vert Z block */
           case 1:
             this.coords = [ [ x + 1, y - 1 ], [ x + 1, y - 2 ], [ x + 2, y - 1 ], [ x + 2, y ] ];
             break;
@@ -262,6 +265,7 @@ module.exports = class Block {
     this.numPix = 4;       // num pixels in T block
     this.curRotation = 0;  // current pos in rotations array
     this.emoji = "🚔";
+    this.letter = 't';
     this.coords = [ [ x, y ], [ x + 1, y ], [ x + 1, y + 1 ], [ x + 2, y ] ];
     this.rotate = function() {
 
@@ -270,7 +274,7 @@ module.exports = class Block {
       let y = this.coords[0][1];
 
       // if T is vert, checks for collisions
-      if ( (this.curRotation === 0 && y < 1)
+      if ( (this.curRotation === 0 && y < 1 || x > 8)
          || ( this.curRotation === 1 && x > 7)
          || ( this.curRotation === 1 && x < 0)
          || ( this.curRotation === 3 && x < 1) ) {
@@ -320,6 +324,7 @@ module.exports = class Block {
     this.numPix = 4;       // num pixels in I block
     this.curRotation = 0;  // current pos in rotations array
     this.emoji = "🚀";
+    this.letter = 'i';
     this.coords = [ [ x, y ], [ x + 1, y ], [ x + 2, y ], [ x + 3, y ] ];
     this.rotate = function() {
 
@@ -366,6 +371,7 @@ module.exports = class Block {
     this.numPix = 4;       // num pixels in I block
     this.curRotation = 0;  // current pos in rotations array
     this.emoji = "🍆";
+    this.letter = 'o';
     this.coords = [ [ x, y ], [ x + 1, y ], [ x, y + 1 ], [ x + 1, y + 1 ] ];
     this.rotate = function() {
       // no rotation on O block;

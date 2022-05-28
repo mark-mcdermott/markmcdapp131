@@ -29,6 +29,7 @@ module.exports = class Block {
     this.curRotation = 0; // current pos in rotations array
 
     this.emoji = "😀";
+    this.letter = 'j';
     this.coords = [[x, y], [x, y + 1], [x + 1, y], [x + 2, y]];
 
     this.rotate = function () {
@@ -102,6 +103,7 @@ module.exports = class Block {
     this.curRotation = 0; // current pos in rotations array
 
     this.emoji = "💩";
+    this.letter = 'l';
     this.coords = [[x, y], [x + 1, y], [x + 2, y], [x + 2, y + 1]];
 
     this.rotate = function () {
@@ -143,7 +145,7 @@ module.exports = class Block {
         }
       }
     };
-  } // init Z block (needs its initial coords)
+  } // init S block (needs its initial coords)
 
 
   _initZ(x, y) {
@@ -151,17 +153,18 @@ module.exports = class Block {
 
     this.width = 3; // Z block width (for wall collision)
 
-    this.numPix = 4; // num pixels in Z block
+    this.numPix = 4; // num pixels in S block
 
     this.curRotation = 0; // current pos in rotations array
 
     this.emoji = "🐶";
+    this.letter = 'z';
     this.coords = [[x, y], [x + 1, y], [x + 1, y + 1], [x + 2, y + 1]];
 
     this.rotate = function () {
       // gets current x & y
       let x = this.coords[0][0];
-      let y = this.coords[0][1]; // if Z is vert, checks for collisions
+      let y = this.coords[0][1]; // if S is vert, checks for collisions
 
       if (this.curRotation === 0 && y < 1) {
         return;
@@ -174,12 +177,12 @@ module.exports = class Block {
         this.curRotation = (this.curRotation + 1) % 2; // rotates to new curRotation
 
         switch (this.curRotation) {
-          /* horiz Z block */
+          /* horiz S block */
           case 0:
             this.coords = [[x, y], [x - 1, y], [x, y + 1], [x + 1, y + 1]];
             break;
 
-          /* vert Z block */
+          /* vert S block */
 
           case 1:
             this.coords = [[x, y], [x, y + 1], [x + 1, y], [x + 1, y - 1]];
@@ -187,7 +190,7 @@ module.exports = class Block {
         }
       }
     };
-  } // init S block (needs its initial coords)
+  } // init Z block (needs its initial coords)
 
 
   _initS(x, y) {
@@ -200,15 +203,16 @@ module.exports = class Block {
     this.curRotation = 0; // current pos in rotations array
 
     this.emoji = "🐮";
+    this.letter = 's';
     this.coords = [[x, y], [x + 1, y], [x + 1, y - 1], [x + 2, y - 1]];
 
     this.rotate = function () {
       // gets current x & y
       let x = this.coords[0][0];
-      let y = this.coords[0][1]; // if S is vert, checks for collisions
+      let y = this.coords[0][1]; // if Z is vert, checks for collisions
 
       if (this.curRotation === 0 && y < 1) {
-        return; // if S is horiz, checks for collisions
+        return; // if Z is horiz, checks for collisions
       } else if (this.curRotation === 1 && x < 1) {
         return;
       }
@@ -218,12 +222,12 @@ module.exports = class Block {
         this.curRotation = (this.curRotation + 1) % 2; // rotates to new curRotation
 
         switch (this.curRotation) {
-          /* horiz S block */
+          /* horiz Z block */
           case 0:
             this.coords = [[x - 1, y + 1], [x, y + 1], [x, y], [x + 1, y]];
             break;
 
-          /* vert S block */
+          /* vert Z block */
 
           case 1:
             this.coords = [[x + 1, y - 1], [x + 1, y - 2], [x + 2, y - 1], [x + 2, y]];
@@ -244,6 +248,7 @@ module.exports = class Block {
     this.curRotation = 0; // current pos in rotations array
 
     this.emoji = "🚔";
+    this.letter = 't';
     this.coords = [[x, y], [x + 1, y], [x + 1, y + 1], [x + 2, y]];
 
     this.rotate = function () {
@@ -251,7 +256,7 @@ module.exports = class Block {
       let x = this.coords[0][0];
       let y = this.coords[0][1]; // if T is vert, checks for collisions
 
-      if (this.curRotation === 0 && y < 1 || this.curRotation === 1 && x > 7 || this.curRotation === 1 && x < 0 || this.curRotation === 3 && x < 1) {
+      if (this.curRotation === 0 && y < 1 || x > 8 || this.curRotation === 1 && x > 7 || this.curRotation === 1 && x < 0 || this.curRotation === 3 && x < 1) {
         return;
       }
 
@@ -298,6 +303,7 @@ module.exports = class Block {
     this.curRotation = 0; // current pos in rotations array
 
     this.emoji = "🚀";
+    this.letter = 'i';
     this.coords = [[x, y], [x + 1, y], [x + 2, y], [x + 3, y]];
 
     this.rotate = function () {
@@ -340,6 +346,7 @@ module.exports = class Block {
     this.curRotation = 0; // current pos in rotations array
 
     this.emoji = "🍆";
+    this.letter = 'o';
     this.coords = [[x, y], [x + 1, y], [x, y + 1], [x + 1, y + 1]];
 
     this.rotate = function () {// no rotation on O block;
@@ -363,13 +370,15 @@ let block = require("./Block.js");
      "Pixel" is unit of height/width, 1/10 width of board.
     Each block is made of 4 pixels.
    */
-  blockToDebug = null; // set to null for regular game
+  blockToDebug = 5; // set to null for regular game
   // frame counter (needed for block entrance timing)
 
   pixel = canWidth / 10;
   let frame = 0,
-      initialSpeed = 35,
-      speed = initialSpeed,
+      // initialSpeed = 35, // game speed
+  initialSpeed = 200,
+      // testing speed
+  speed = initialSpeed,
       fontStyle = "30px Georgia",
       fallingBlock,
 
@@ -512,6 +521,42 @@ let block = require("./Block.js");
     return 'movedDown';
   }
 
+  function checkRightWallCollision(fallingBlock) {
+    x = fallingBlock.coords[0];
+    block = fallingBlock.letter;
+    rotation = fallingBlock.currentRotation;
+    console.log(block); // switch (block) {
+    //   case 'I':
+    //     // color = colorI;
+    //     emoji = "🚀";
+    //     break;
+    //   case 'T':
+    //     // color = colorT;
+    //     emoji = "🚔";
+    //     break;
+    //   case 'O':
+    //     // color = colorO;
+    //     emoji = "🍆";
+    //     break;
+    //   case 'S':
+    //     // color = colorS;
+    //     emoji = "🐮";
+    //     break;
+    //   case 'Z':
+    //     // color = colorZ;
+    //     emoji = "🐶";
+    //     break;
+    //   case 'L':
+    //     // color = colorJ;
+    //     emoji = "💩";
+    //     break;
+    //   case 'J':
+    //     // color = colorL;
+    //     emoji = "😀";
+    //     break;
+    // }
+  }
+
   function moveSide(direction) {
     if (direction === 'left') {
       // if not at left edge, move left
@@ -546,6 +591,9 @@ let block = require("./Block.js");
       // if not at right edge, move right
       let length = fallingBlock.coords.length;
       let lastPixel = fallingBlock['coords'][length - 1]; // console.log(lastPixel)
+
+      checkRightWallCollision(fallingBlock); // if lastPixel[0] < 9 is a very naieve right wall collision detection
+      // TODO: add more sophisticated right wall collision detection here
 
       if (lastPixel[0] < 9) {
         // check if touching another block
@@ -689,7 +737,7 @@ let block = require("./Block.js");
     let x;
     let numBlock;
 
-    if (debugBlockNum) {
+    if (debugBlockNum != null) {
       numBlock = debugBlockNum;
     } else {
       numBlock = Math.floor(Math.random() * 7);
@@ -697,17 +745,17 @@ let block = require("./Block.js");
 
     switch (numBlock) {
       case 0:
-        blockType = 'i';
+        blockType = 'j';
         x = Math.floor(Math.random() * (10 - 3));
         break;
 
       case 1:
-        blockType = 'o';
+        blockType = 'l';
         x = Math.floor(Math.random() * (10 - 2));
         break;
 
       case 2:
-        blockType = 't';
+        blockType = 'z';
         x = Math.floor(Math.random() * (10 - 2));
         break;
 
@@ -717,17 +765,17 @@ let block = require("./Block.js");
         break;
 
       case 4:
-        blockType = 'z';
+        blockType = 't';
         x = Math.floor(Math.random() * (10 - 2));
         break;
 
       case 5:
-        blockType = 'j';
+        blockType = 'i';
         x = Math.floor(Math.random() * (10 - 2));
         break;
 
       case 6:
-        blockType = 'l';
+        blockType = 'o';
         x = Math.floor(Math.random() * (10 - 2));
         break;
     }
