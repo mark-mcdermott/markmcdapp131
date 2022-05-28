@@ -71,22 +71,22 @@ module.exports = class Block {
           // rotates to new curRotation
           switch(this.curRotation) {
 
-            /* down facing L block */
+            /* up facing J block */
             case 0:
               this.coords = [ [ x - 1, y + 1 ], [ x, y + 1 ], [ x + 1, y + 1 ], [ x - 1, y + 2 ] ];
               break;
 
-            /* left facing L block */
+            /* left facing J block */
             case 1:
               this.coords = [ [ x, y - 1 ], [ x + 1, y - 1], [ x + 1, y ], [ x + 1, y + 1 ]  ];
               break;
 
-            /* up facing L block */
+            /* down facing J block */
             case 2:
               this.coords = [ [ x, y + 1 ], [ x + 1, y + 1 ], [ x + 2, y + 1 ], [ x + 2, y ]  ];
               break;
 
-            /* right facing L block */
+            /* right facing J block */
             case 3:
               this.coords = [ [ x + 1, y - 1 ], [ x + 1, y ], [ x + 1, y + 1 ], [ x + 2, y + 1 ]  ];
               break;
@@ -131,7 +131,7 @@ module.exports = class Block {
         // rotates to new curRotation
         switch(this.curRotation) {
 
-          /* down facing L block */
+          /* up facing L block */
           case 0:
             this.coords = [ [ x - 1, y - 1 ], [ x, y - 1 ], [ x + 1, y - 1 ], [ x + 1, y ] ];
             break;
@@ -141,7 +141,7 @@ module.exports = class Block {
             this.coords = [ [ x, y + 1 ], [ x + 1, y + 1], [ x + 1, y ], [ x + 1, y - 1 ]  ];
             break;
 
-          /* up facing L block */
+          /* down facing L block */
           case 2:
             this.coords = [ [ x, y - 2 ], [ x, y - 1 ], [ x + 1, y - 1 ], [ x + 2, y - 1 ]  ];
             break;
@@ -188,7 +188,7 @@ module.exports = class Block {
         // rotates to new curRotation
         switch(this.curRotation) {
 
-          /* down facing Z block */
+          /* horiz Z block */
           case 0:
             this.coords = [ [ x, y ], [ x - 1, y ], [ x, y + 1 ], [ x + 1, y + 1] ];
             break;
@@ -237,7 +237,7 @@ module.exports = class Block {
         // rotates to new curRotation
         switch(this.curRotation) {
 
-          /* down facing S block */
+          /* horiz S block */
           case 0:
             this.coords = [ [ x - 1, y + 1 ], [ x, y + 1 ], [ x, y ], [ x + 1, y ] ];
             break;
@@ -285,7 +285,7 @@ module.exports = class Block {
         // rotates to new curRotation
         switch(this.curRotation) {
 
-          /* down facing T block */
+          /* up facing T block */
           case 0:
             this.coords = [ [ x - 1, y - 1 ], [ x , y - 1 ], [ x, y ], [ x + 1, y - 1 ] ];
             break;
@@ -295,7 +295,7 @@ module.exports = class Block {
             this.coords = [ [ x, y ], [ x + 1, y ], [ x + 1, y - 1 ], [ x + 1, y + 1 ] ];
             break;
 
-          /* up facing T block */
+          /* down facing T block */
           case 2:
             this.coords = [ [ x, y ], [ x + 1, y ], [ x + 1, y - 1 ], [ x + 2, y ] ];
             break;
