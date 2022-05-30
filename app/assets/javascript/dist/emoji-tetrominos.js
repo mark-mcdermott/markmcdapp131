@@ -370,7 +370,7 @@ let block = require("./Block.js");
      "Pixel" is unit of height/width, 1/10 width of board.
     Each block is made of 4 pixels.
    */
-  blockToDebug = 4; // set to null for regular game
+  blockToDebug = null; // set to null for regular game
   // frame counter (needed for block entrance timing)
 
   pixel = canWidth / 10;
