@@ -18,7 +18,7 @@ let block = require("./Block.js");
 
       */
 
-      blockToDebug = 4; // set to null for regular game
+      blockToDebug = null; // set to null for regular game
       // frame counter (needed for block entrance timing)
       pixel = canWidth / 10;
   let frame = 0,
