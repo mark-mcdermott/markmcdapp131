@@ -18,12 +18,12 @@ let block = require("./Block.js");
 
       */
 
-      blockToDebug = 5; // set to null for regular game
+      blockToDebug = 4; // set to null for regular game
       // frame counter (needed for block entrance timing)
       pixel = canWidth / 10;
   let frame = 0,
-      // initialSpeed = 35, // game speed
-      initialSpeed = 200,   // testing speed
+      initialSpeed = 35, // game speed
+      // initialSpeed = 200, // testing speed
       speed = initialSpeed,
       fontStyle = "30px Georgia",
       fallingBlock,
@@ -187,44 +187,69 @@ let block = require("./Block.js");
     return 'movedDown';
   }
 
-  function checkRightWallCollision(fallingBlock) {
-    x = fallingBlock.coords[0];
-    block = fallingBlock.letter;
-    rotation = fallingBlock.currentRotation;
+  function checkLeftWallCollision(block) {
+    let blockLetter = block.blockLetter;
+    let x = fallingBlock['coords'][0][0];
+    let curRotation = fallingBlock.curRotation;
+    switch (blockLetter) {
+      case 'i':
+        // console.log('checkRightWallCollision: i')
+        break;
+      case 't':
+        // console.log('checkRightWallCollision: t');
+        break;
+      case 'o':
+        // console.log('checkRightWallCollision: o');
+        break;
+      case 's':
+        // console.log('checkRightWallCollision: s');
+        break;
+      case 'z':
+        if (curRotation == 0) {
+          if (x < 2) {
+            return true;
+          }
+        }
+        break;
+      case 'l':
+        // console.log('checkRightWallCollision: l');
+        break;
+      case 'j':
+        // console.log('checkRightWallCollision: j');
+        break;
+    }
+  }
 
-    console.log(block)
-
-    // switch (block) {
-    //   case 'I':
-    //     // color = colorI;
-    //     emoji = "🚀";
-    //     break;
-    //   case 'T':
-    //     // color = colorT;
-    //     emoji = "🚔";
-    //     break;
-    //   case 'O':
-    //     // color = colorO;
-    //     emoji = "🍆";
-    //     break;
-    //   case 'S':
-    //     // color = colorS;
-    //     emoji = "🐮";
-    //     break;
-    //   case 'Z':
-    //     // color = colorZ;
-    //     emoji = "🐶";
-    //     break;
-    //   case 'L':
-    //     // color = colorJ;
-    //     emoji = "💩";
-    //     break;
-    //   case 'J':
-    //     // color = colorL;
-    //     emoji = "😀";
-    //     break;
-    // }
-
+  function checkRightWallCollision(block) {
+    let blockLetter = block.blockLetter;
+    let x = fallingBlock['coords'][0][0];
+    switch (blockLetter) {
+      case 'i':
+        // console.log('checkRightWallCollision: i')
+        break;
+      case 't':
+        // console.log('checkRightWallCollision: t');
+        break;
+      case 'o':
+        // console.log('checkRightWallCollision: o');
+        break;
+      case 's':
+        // console.log('checkRightWallCollision: s');
+        break;
+      case 'z':
+        // console.log('checkRightWallCollision: z');
+        break;
+      case 'l':
+        // console.log('checkRightWallCollision: l');
+        break;
+      case 'j':
+        if (fallingBlock.curRotation == 0) {
+          if (x > 6) {
+            return true;
+          }
+        }
+        break;
+    }
   }
 
   function moveSide(direction) {
@@ -237,6 +262,9 @@ let block = require("./Block.js");
         // check if touching another block
         // (this approach to collision detection from https://gamedevelopment.tutsplus.com/tutorials/implementing-tetris-collision-detection--gamedev-852 )
         let collision = false;
+        if (checkLeftWallCollision(fallingBlock)) {
+          collision = true; 
+        }
         for (let coords of fallingBlock.coords) {
           const [ x, y ] = coords;
           if ( (x > 0) && ( y >= 0) ) {
@@ -258,22 +286,19 @@ let block = require("./Block.js");
     }
 
     if (direction === 'right') {
-
       // TODO: run this check on every pixel in block, not just last
       // if not at right edge, move right
       let length = fallingBlock.coords.length;
       let lastPixel = fallingBlock['coords'][length-1];
       // console.log(lastPixel)
-
-      checkRightWallCollision(fallingBlock);
-
-      // if lastPixel[0] < 9 is a very naieve right wall collision detection
-      // TODO: add more sophisticated right wall collision detection here
       if (lastPixel[0] < 9) {
 
         // check if touching another block
         // (this approach to collision detection from https://gamedevelopment.tutsplus.com/tutorials/implementing-tetris-collision-detection--gamedev-852 )
         let collision = false;
+        if (checkRightWallCollision(fallingBlock)) {
+          collision = true; 
+        }
         for (let coords of fallingBlock.coords) {
           const [ x, y ] = coords;
           if ( (x < 9) && (y>=0) ) {
@@ -282,7 +307,6 @@ let block = require("./Block.js");
             }
           }
         }
-
         if (!collision) {
           for (let i=0; i<fallingBlock.coords.length; i++) {
             fallingBlock['coords'][i][0]++;
@@ -397,8 +421,6 @@ let block = require("./Block.js");
     speed = initialSpeed - level * 2;
   }
 
-
-
   // spawns new block at top
   // (todo: x-pos will be random & will account for block width
   //        so not over either edge)
@@ -419,17 +441,17 @@ let block = require("./Block.js");
     switch (numBlock) {
 
       case 0:
-        blockType = 'j';
+        blockType = 'i';
         x = Math.floor(Math.random() * (10 - 3));
         break;
 
       case 1:
-        blockType = 'l';
+        blockType = 'o';
         x = Math.floor(Math.random() * (10 - 2));
         break;
 
       case 2:
-        blockType = 'z';
+        blockType = 't';
         x = Math.floor(Math.random() * (10 - 2));
         break;
 
@@ -439,17 +461,17 @@ let block = require("./Block.js");
         break;
 
       case 4:
-        blockType = 't';
+        blockType = 'z';
         x = Math.floor(Math.random() * (10 - 2));
         break;
 
       case 5:
-        blockType = 'i';
+        blockType = 'j';
         x = Math.floor(Math.random() * (10 - 2));
         break;
 
       case 6:
-        blockType = 'o';
+        blockType = 'l';
         x = Math.floor(Math.random() * (10 - 2));
         break;
 

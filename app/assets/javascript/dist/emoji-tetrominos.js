@@ -29,7 +29,7 @@ module.exports = class Block {
     this.curRotation = 0; // current pos in rotations array
 
     this.emoji = "😀";
-    this.letter = 'j';
+    this.blockLetter = "j";
     this.coords = [[x, y], [x, y + 1], [x + 1, y], [x + 2, y]];
 
     this.rotate = function () {
@@ -103,7 +103,7 @@ module.exports = class Block {
     this.curRotation = 0; // current pos in rotations array
 
     this.emoji = "💩";
-    this.letter = 'l';
+    this.blockLetter = 'l';
     this.coords = [[x, y], [x + 1, y], [x + 2, y], [x + 2, y + 1]];
 
     this.rotate = function () {
@@ -158,7 +158,7 @@ module.exports = class Block {
     this.curRotation = 0; // current pos in rotations array
 
     this.emoji = "🐶";
-    this.letter = 'z';
+    this.blockLetter = 'z';
     this.coords = [[x, y], [x + 1, y], [x + 1, y + 1], [x + 2, y + 1]];
 
     this.rotate = function () {
@@ -203,7 +203,7 @@ module.exports = class Block {
     this.curRotation = 0; // current pos in rotations array
 
     this.emoji = "🐮";
-    this.letter = 's';
+    this.blockLetter = 's';
     this.coords = [[x, y], [x + 1, y], [x + 1, y - 1], [x + 2, y - 1]];
 
     this.rotate = function () {
@@ -227,7 +227,7 @@ module.exports = class Block {
             this.coords = [[x - 1, y + 1], [x, y + 1], [x, y], [x + 1, y]];
             break;
 
-          /* vert Z block */
+          /* vert X block */
 
           case 1:
             this.coords = [[x + 1, y - 1], [x + 1, y - 2], [x + 2, y - 1], [x + 2, y]];
@@ -248,7 +248,7 @@ module.exports = class Block {
     this.curRotation = 0; // current pos in rotations array
 
     this.emoji = "🚔";
-    this.letter = 't';
+    this.blockLetter = 't';
     this.coords = [[x, y], [x + 1, y], [x + 1, y + 1], [x + 2, y]];
 
     this.rotate = function () {
@@ -256,7 +256,7 @@ module.exports = class Block {
       let x = this.coords[0][0];
       let y = this.coords[0][1]; // if T is vert, checks for collisions
 
-      if (this.curRotation === 0 && y < 1 || x > 8 || this.curRotation === 1 && x > 7 || this.curRotation === 1 && x < 0 || this.curRotation === 3 && x < 1) {
+      if (this.curRotation === 0 && y < 1 || this.curRotation === 1 && x > 7 || this.curRotation === 1 && x < 0 || this.curRotation === 3 && x < 1) {
         return;
       }
 
@@ -303,7 +303,7 @@ module.exports = class Block {
     this.curRotation = 0; // current pos in rotations array
 
     this.emoji = "🚀";
-    this.letter = 'i';
+    this.blockLetter = 'i';
     this.coords = [[x, y], [x + 1, y], [x + 2, y], [x + 3, y]];
 
     this.rotate = function () {
@@ -346,7 +346,7 @@ module.exports = class Block {
     this.curRotation = 0; // current pos in rotations array
 
     this.emoji = "🍆";
-    this.letter = 'o';
+    this.blockLetter = 'o';
     this.coords = [[x, y], [x + 1, y], [x, y + 1], [x + 1, y + 1]];
 
     this.rotate = function () {// no rotation on O block;
@@ -370,14 +370,14 @@ let block = require("./Block.js");
      "Pixel" is unit of height/width, 1/10 width of board.
     Each block is made of 4 pixels.
    */
-  blockToDebug = 5; // set to null for regular game
+  blockToDebug = 4; // set to null for regular game
   // frame counter (needed for block entrance timing)
 
   pixel = canWidth / 10;
   let frame = 0,
-      // initialSpeed = 35, // game speed
-  initialSpeed = 200,
-      // testing speed
+      initialSpeed = 35,
+      // game speed
+  // initialSpeed = 200, // testing speed
   speed = initialSpeed,
       fontStyle = "30px Georgia",
       fallingBlock,
@@ -521,40 +521,85 @@ let block = require("./Block.js");
     return 'movedDown';
   }
 
-  function checkRightWallCollision(fallingBlock) {
-    x = fallingBlock.coords[0];
-    block = fallingBlock.letter;
-    rotation = fallingBlock.currentRotation;
-    console.log(block); // switch (block) {
-    //   case 'I':
-    //     // color = colorI;
-    //     emoji = "🚀";
-    //     break;
-    //   case 'T':
-    //     // color = colorT;
-    //     emoji = "🚔";
-    //     break;
-    //   case 'O':
-    //     // color = colorO;
-    //     emoji = "🍆";
-    //     break;
-    //   case 'S':
-    //     // color = colorS;
-    //     emoji = "🐮";
-    //     break;
-    //   case 'Z':
-    //     // color = colorZ;
-    //     emoji = "🐶";
-    //     break;
-    //   case 'L':
-    //     // color = colorJ;
-    //     emoji = "💩";
-    //     break;
-    //   case 'J':
-    //     // color = colorL;
-    //     emoji = "😀";
-    //     break;
-    // }
+  function checkLeftWallCollision(block) {
+    let blockLetter = block.blockLetter;
+    let x = fallingBlock['coords'][0][0];
+    let curRotation = fallingBlock.curRotation;
+
+    switch (blockLetter) {
+      case 'i':
+        // console.log('checkRightWallCollision: i')
+        break;
+
+      case 't':
+        // console.log('checkRightWallCollision: t');
+        break;
+
+      case 'o':
+        // console.log('checkRightWallCollision: o');
+        break;
+
+      case 's':
+        // console.log('checkRightWallCollision: s');
+        break;
+
+      case 'z':
+        if (curRotation == 0) {
+          if (x < 2) {
+            return true;
+          }
+        }
+
+        break;
+
+      case 'l':
+        // console.log('checkRightWallCollision: l');
+        break;
+
+      case 'j':
+        // console.log('checkRightWallCollision: j');
+        break;
+    }
+  }
+
+  function checkRightWallCollision(block) {
+    let blockLetter = block.blockLetter;
+    let x = fallingBlock['coords'][0][0];
+
+    switch (blockLetter) {
+      case 'i':
+        // console.log('checkRightWallCollision: i')
+        break;
+
+      case 't':
+        // console.log('checkRightWallCollision: t');
+        break;
+
+      case 'o':
+        // console.log('checkRightWallCollision: o');
+        break;
+
+      case 's':
+        // console.log('checkRightWallCollision: s');
+        break;
+
+      case 'z':
+        // console.log('checkRightWallCollision: z');
+        break;
+
+      case 'l':
+        // console.log('checkRightWallCollision: l');
+        break;
+
+      case 'j':
+        if (fallingBlock.curRotation == 0) {
+          if (x > 6) {
+            return true;
+          }
+        }
+
+        break;
+    }
   }
 
   function moveSide(direction) {
@@ -566,6 +611,10 @@ let block = require("./Block.js");
         // check if touching another block
         // (this approach to collision detection from https://gamedevelopment.tutsplus.com/tutorials/implementing-tetris-collision-detection--gamedev-852 )
         let collision = false;
+
+        if (checkLeftWallCollision(fallingBlock)) {
+          collision = true;
+        }
 
         for (let coords of fallingBlock.coords) {
           const [x, y] = coords;
@@ -592,13 +641,14 @@ let block = require("./Block.js");
       let length = fallingBlock.coords.length;
       let lastPixel = fallingBlock['coords'][length - 1]; // console.log(lastPixel)
 
-      checkRightWallCollision(fallingBlock); // if lastPixel[0] < 9 is a very naieve right wall collision detection
-      // TODO: add more sophisticated right wall collision detection here
-
       if (lastPixel[0] < 9) {
         // check if touching another block
         // (this approach to collision detection from https://gamedevelopment.tutsplus.com/tutorials/implementing-tetris-collision-detection--gamedev-852 )
         let collision = false;
+
+        if (checkRightWallCollision(fallingBlock)) {
+          collision = true;
+        }
 
         for (let coords of fallingBlock.coords) {
           const [x, y] = coords;
@@ -745,17 +795,17 @@ let block = require("./Block.js");
 
     switch (numBlock) {
       case 0:
-        blockType = 'j';
+        blockType = 'i';
         x = Math.floor(Math.random() * (10 - 3));
         break;
 
       case 1:
-        blockType = 'l';
+        blockType = 'o';
         x = Math.floor(Math.random() * (10 - 2));
         break;
 
       case 2:
-        blockType = 'z';
+        blockType = 't';
         x = Math.floor(Math.random() * (10 - 2));
         break;
 
@@ -765,17 +815,17 @@ let block = require("./Block.js");
         break;
 
       case 4:
-        blockType = 't';
+        blockType = 'z';
         x = Math.floor(Math.random() * (10 - 2));
         break;
 
       case 5:
-        blockType = 'i';
+        blockType = 'j';
         x = Math.floor(Math.random() * (10 - 2));
         break;
 
       case 6:
-        blockType = 'o';
+        blockType = 'l';
         x = Math.floor(Math.random() * (10 - 2));
         break;
     }
